@@ -53,15 +53,23 @@ for i in "${!CLIS[@]}"; do
     fi
   } > "$CURRENT"
 
-  # Compare
+  # Compare (filter out metadata lines like LAST_RELEASE= from stored snapshot)
   if [ ! -f "$SNAPSHOT" ]; then
     echo "NEW: $CLI (no previous snapshot)"
     cp "$CURRENT" "$SNAPSHOT"
     CHANGED=1
-  elif ! diff -q "$CURRENT" "$SNAPSHOT" &>/dev/null; then
-    echo "CHANGED: $CLI"
-    cp "$CURRENT" "$SNAPSHOT"
-    CHANGED=1
+  else
+    SNAPSHOT_FILTERED=$(mktemp)
+    grep -v '^LAST_RELEASE=' "$SNAPSHOT" > "$SNAPSHOT_FILTERED" || true
+    if ! diff -q "$CURRENT" "$SNAPSHOT_FILTERED" &>/dev/null; then
+      echo "CHANGED: $CLI"
+      # Preserve metadata lines from existing snapshot
+      grep '^LAST_RELEASE=' "$SNAPSHOT" > "$CURRENT.meta" 2>/dev/null || true
+      cat "$CURRENT.meta" >> "$CURRENT" 2>/dev/null || true
+      cp "$CURRENT" "$SNAPSHOT"
+      CHANGED=1
+    fi
+    rm -f "$SNAPSHOT_FILTERED" "$CURRENT.meta"
   fi
 
   rm -f "$CURRENT"
