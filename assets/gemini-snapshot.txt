@@ -43,3 +43,4 @@ Options:
       --accept-raw-output-risk    Suppress the security warning when using --raw-output.  [boolean]
   -v, --version                   Show version number  [boolean]
   -h, --help                      Show help  [boolean]
+LAST_RELEASE=v0.36.0
