@@ -167,3 +167,4 @@ gpt-5-mini - GPT-5 Mini
 kimi-k2.5 - Kimi K2.5
 
 Tip: use --model <id> (or /model <id> in interactive mode) to switch.
+LAST_RELEASE={message:Not Found,documentation_url:https://docs.github.com/rest/releases/releases#get-the-latest-release,status:404}unknown
