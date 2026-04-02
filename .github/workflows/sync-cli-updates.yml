@@ -82,6 +82,8 @@ jobs:
       - name: Run snapshot detection
         id: detect
         run: |
+          # Source profile to pick up PATH changes from curl installers
+          source ~/.bashrc 2>/dev/null || source ~/.profile 2>/dev/null || true
           chmod +x scripts/detect-updates.sh
           if ./scripts/detect-updates.sh; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
