@@ -77,4 +77,3 @@ Commands:
   ls                           Resume a chat session
   resume                       Resume the latest chat session
   help [command]               Display help for command
-
