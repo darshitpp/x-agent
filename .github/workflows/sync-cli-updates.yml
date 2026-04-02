@@ -1,0 +1,182 @@
+name: Sync CLI Updates
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  # Job 1: Check GitHub Releases API for new versions (no CLI install needed)
+  release-watch:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - cli: codex
+            repo: openai/codex
+          - cli: claude
+            repo: anthropics/claude-code
+          - cli: gemini
+            repo: google-gemini/gemini-cli
+          - cli: cursor
+            repo: getcursor/cursor
+          - cli: junie
+            repo: JetBrains/junie-cli
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check latest release
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          LATEST=$(gh api repos/${{ matrix.repo }}/releases/latest --jq '.tag_name' 2>/dev/null || echo "unknown")
+          SNAPSHOT_FILE="assets/${{ matrix.cli }}-snapshot.txt"
+          STORED=$(grep -m1 'LAST_RELEASE=' "$SNAPSHOT_FILE" 2>/dev/null | cut -d= -f2 || echo "none")
+          echo "latest=$LATEST" >> "$GITHUB_OUTPUT"
+          echo "stored=$STORED" >> "$GITHUB_OUTPUT"
+          if [ "$LATEST" != "$STORED" ] && [ "$LATEST" != "unknown" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+        continue-on-error: true
+
+      - name: Upload release info
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          echo "${{ matrix.cli }}=${{ steps.check.outputs.latest }}" >> release-changes-${{ matrix.cli }}.txt
+          echo "stored_${{ matrix.cli }}=${{ steps.check.outputs.stored }}" >> release-changes-${{ matrix.cli }}.txt
+
+      - uses: actions/upload-artifact@v4
+        if: steps.check.outputs.changed == 'true'
+        with:
+          name: release-${{ matrix.cli }}
+          path: release-changes-${{ matrix.cli }}.txt
+
+  # Job 2: Run CLIs locally to diff --version/--help/--list-models output
+  # Uses self-hosted runner with CLIs pre-installed, or falls back gracefully
+  snapshot-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install CLIs (best-effort)
+        run: |
+          # Claude Code
+          npm install -g @anthropic-ai/claude-code 2>/dev/null || echo "SKIP: claude install failed"
+          # Codex
+          npm install -g @openai/codex 2>/dev/null || echo "SKIP: codex install failed"
+          # Gemini CLI
+          npm install -g @google/gemini-cli 2>/dev/null || echo "SKIP: gemini install failed"
+          # Cursor and Junie may not be npm-installable
+          echo "SKIP: cursor and junie require manual installation"
+        continue-on-error: true
+
+      - name: Run snapshot detection
+        id: detect
+        run: |
+          chmod +x scripts/detect-updates.sh
+          if ./scripts/detect-updates.sh; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+        continue-on-error: true
+
+      - uses: actions/upload-artifact@v4
+        if: steps.detect.outputs.changed == 'true'
+        with:
+          name: snapshots
+          path: assets/*-snapshot.txt
+
+  # Job 3: Open PRs for any changed CLIs
+  open-pr:
+    needs: [release-watch, snapshot-diff]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+        continue-on-error: true
+
+      - name: Apply snapshot updates
+        run: |
+          # Copy any updated snapshots
+          for f in *-snapshot.txt 2>/dev/null; do
+            [ -f "$f" ] && cp "$f" "assets/$f"
+          done
+          # Apply release version updates (iterate all per-CLI files)
+          for rcf in release-changes-*.txt 2>/dev/null; do
+            [ -f "$rcf" ] || continue
+            while IFS='=' read -r key value; do
+              case "$key" in
+                stored_*) continue ;;
+                *)
+                  CLI="$key"
+                  SNAPSHOT_FILE="assets/${CLI}-snapshot.txt"
+                  sed -i '/^LAST_RELEASE=/d' "$SNAPSHOT_FILE" 2>/dev/null || true
+                  echo "LAST_RELEASE=$value" >> "$SNAPSHOT_FILE"
+                  ;;
+              esac
+            done < "$rcf"
+          done
+        continue-on-error: true
+
+      - name: Check for changes and create PRs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          DEFAULT_BRANCH="${{ github.event.repository.default_branch }}"
+
+          if git diff --quiet assets/; then
+            echo "No changes detected"
+            exit 0
+          fi
+
+          # Determine which CLIs changed
+          CHANGED_CLIS=$(git diff --name-only assets/ | sed 's|assets/||;s|-snapshot.txt||' | sort -u)
+
+          for CLI in $CHANGED_CLIS; do
+            BRANCH="cli-update/${CLI}"
+
+            # Check for existing PR (duplicate prevention — filter by head branch, not text search)
+            EXISTING=$(gh pr list --label "cli-update" --head "cli-update/${CLI}" --json number --jq '.[0].number' 2>/dev/null || echo "")
+
+            git checkout -b "$BRANCH" 2>/dev/null || git checkout "$BRANCH"
+            git add "assets/${CLI}-snapshot.txt"
+            git commit -m "chore: update ${CLI} CLI snapshot" || continue
+            git push origin "$BRANCH" --force-with-lease
+
+            if [ -n "$EXISTING" ]; then
+              echo "Existing PR #${EXISTING} updated for ${CLI}"
+            else
+              gh pr create \
+                --title "chore: update ${CLI} CLI snapshot" \
+                --body "$(cat <<EOF
+## Summary
+- Snapshot updated for \`${CLI}\`
+
+## Action Required
+- Review version matrix in \`references/cli-${CLI}.md\`
+- Check for new/changed CLI flags
+- Verify tier classification for any new models
+EOF
+)" \
+                --label "cli-update"
+            fi
+
+            git checkout "$DEFAULT_BRANCH"
+          done
