@@ -112,12 +112,13 @@ jobs:
 
       - name: Apply snapshot updates
         run: |
+          shopt -s nullglob
           # Copy any updated snapshots
-          for f in *-snapshot.txt 2>/dev/null; do
+          for f in *-snapshot.txt; do
             [ -f "$f" ] && cp "$f" "assets/$f"
           done
           # Apply release version updates (iterate all per-CLI files)
-          for rcf in release-changes-*.txt 2>/dev/null; do
+          for rcf in release-changes-*.txt; do
             [ -f "$rcf" ] || continue
             while IFS='=' read -r key value; do
               case "$key" in
