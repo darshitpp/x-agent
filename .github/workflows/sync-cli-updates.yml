@@ -44,6 +44,7 @@ jobs:
         run: |
           source ~/.bashrc 2>/dev/null || source ~/.profile 2>/dev/null || true
           export PATH="$HOME/.local/bin:$HOME/bin:$HOME/.junie/bin:$HOME/.cursor/bin:$PATH"
+          mkdir -p ~/.gemini
           chmod +x scripts/detect-updates.sh
           if ./scripts/detect-updates.sh ${{ matrix.cli }}; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
