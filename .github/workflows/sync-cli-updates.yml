@@ -163,18 +163,17 @@ jobs:
             if [ -n "$EXISTING" ]; then
               echo "Existing PR #${EXISTING} updated for ${CLI}"
             else
+              PR_BODY="## Summary
+          - Snapshot updated for \`${CLI}\`
+
+          ## Action Required
+          - Review version matrix in \`references/cli-${CLI}.md\`
+          - Check for new/changed CLI flags
+          - Verify tier classification for any new models"
+
               gh pr create \
                 --title "chore: update ${CLI} CLI snapshot" \
-                --body "$(cat <<EOF
-## Summary
-- Snapshot updated for \`${CLI}\`
-
-## Action Required
-- Review version matrix in \`references/cli-${CLI}.md\`
-- Check for new/changed CLI flags
-- Verify tier classification for any new models
-EOF
-)" \
+                --body "$PR_BODY" \
                 --label "cli-update"
             fi
 
