@@ -1,4 +1,17 @@
 === VERSION ===
+Failed to save project registry to /home/runner/.gemini/projects.json: Error: ENOENT: no such file or directory, rename '/home/runner/.gemini/projects.json.tmp' -> '/home/runner/.gemini/projects.json'
+    at async Object.rename (node:internal/fs/promises:780:10)
+    at async ProjectRegistry.save (file:///usr/local/lib/node_modules/@google/gemini-cli/bundle/chunk-S2IQOR7T.js:41599:7)
+    at async ProjectRegistry.getShortId (file:///usr/local/lib/node_modules/@google/gemini-cli/bundle/chunk-S2IQOR7T.js:41618:7)
+    at async file:///usr/local/lib/node_modules/@google/gemini-cli/bundle/chunk-S2IQOR7T.js:41949:32
+    at async cleanupCheckpoints (file:///usr/local/lib/node_modules/@google/gemini-cli/bundle/chunk-UNM3DGTG.js:43585:3)
+    at async Promise.all (index 0) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'rename',
+  path: '/home/runner/.gemini/projects.json.tmp',
+  dest: '/home/runner/.gemini/projects.json'
+}
 0.36.0
 
 === HELP ===

@@ -59,3 +59,4 @@ Arguments:
   <task>  Task description (optional positional argument)
           Example: junie "Fix the bug in the login function"
 
+LAST_RELEASE=1336.1
