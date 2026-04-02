@@ -61,15 +61,11 @@ for i in "${!CLIS[@]}"; do
     CHANGED=1
   else
     SNAPSHOT_FILTERED=$(mktemp)
-    # Strip metadata and LIST MODELS section (may have been captured locally with auth)
-    sed '/^=== LIST MODELS ===/,$d' "$SNAPSHOT" | grep -v '^LAST_RELEASE=' > "$SNAPSHOT_FILTERED" || true
+    grep -v '^LAST_RELEASE=' "$SNAPSHOT" > "$SNAPSHOT_FILTERED" || true
     if ! diff -q "$CURRENT" "$SNAPSHOT_FILTERED" &>/dev/null; then
       echo "CHANGED: $CLI"
-      # Preserve metadata and LIST MODELS section from existing snapshot
-      {
-        grep '^LAST_RELEASE=' "$SNAPSHOT" 2>/dev/null || true
-        sed -n '/^=== LIST MODELS ===/,$p' "$SNAPSHOT" 2>/dev/null || true
-      } >> "$CURRENT"
+      # Preserve metadata lines from existing snapshot
+      grep '^LAST_RELEASE=' "$SNAPSHOT" >> "$CURRENT" 2>/dev/null || true
       cp "$CURRENT" "$SNAPSHOT"
       CHANGED=1
     fi
