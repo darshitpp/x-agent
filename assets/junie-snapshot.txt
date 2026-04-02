@@ -1,0 +1,61 @@
+=== VERSION ===
+Junie version: 888.219
+
+=== HELP ===
+Usage: junie [<options>] [<task>] 
+
+       ///////               ///                           ///
+       ///////               ///                           ///
+       ///////               ///  ///     ///  /////////         ///////
+///////      ///////         ///  ///     ///  //////////  ///  //////////
+///////      ///////         ///  ///     ///  ///     /// /// ///     ////
+///////     ////////         ///  ///     ///  ///     /// /// ////////////
+       ///////////           ///  ///    ////  ///     /// /// ///
+       /////////        ////////  //////////   ///     /// ///  ///////////
+       //////           //////     ////////    ///     /// ///   ////////
+
+A command-line Junie interface for running code tasks.
+
+Interactive mode:       junie
+Non-interactive mode:   junie "Fix the bug in the login function"
+                        junie --task "Fix the bug"
+
+Core:
+  --task=<text>         Task description (alternative to positional argument)
+  --session-id=<text>   Id of the previously executed session to follow up
+  --brave               Turns on Brave Mode (interactive only)
+  -p, --project=<text>  Project directory (default: current directory)
+  --model=<text>        Model to use for the primary agent
+
+Authentication:
+  -a, --auth=<text>            Authentication token, visit https://junie.jetbrains.com/cli to generate a token.
+  --openai-api-key=<text>      OpenAI API key.
+  --anthropic-api-key=<text>   Anthropic API key.
+  --grok-api-key=<text>        Grok API key.
+  --openrouter-api-key=<text>  OpenRouter API key.
+  --google-api-key=<text>      Google API key.
+
+System (non-interactive only):
+  --input-format=<text>      Input format: text or json
+  --output-format=<text>     Output format: text, json
+  --json-output-file=<text>  The file where JSON output is written. If not specified, output is printed to stdout
+  -t, --timeout=<int>        Time limit in millis
+  -c, --cache-dir=<text>     Caching directory for Junie
+  --version                  Show version
+  --skip-update-check        Skip the automatic update check on startup. Useful for CI or automation
+
+Misc:
+  --guidelines-filename=<text>  
+  -h, --help                    Show this message and exit
+
+Acp:
+  --acp=<[true|false]>  Run in ACP mode (Agent Communication Protocol) for IDE integrations.
+
+MCP:
+  --mcp-default-locations=<text>  Enable or disable adding MCP servers from default locations (per user / per project).
+  --mcp-location=<text>           Additional folders where MCP servers should be found. Can be specified multiple times.
+
+Arguments:
+  <task>  Task description (optional positional argument)
+          Example: junie "Fix the bug in the login function"
+

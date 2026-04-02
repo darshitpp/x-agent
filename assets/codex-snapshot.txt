@@ -1,0 +1,2 @@
+=== VERSION ===
+(not installed — populate on first available snapshot)

@@ -1,0 +1,169 @@
+=== VERSION ===
+2026.03.30-a5d3e17
+
+=== HELP ===
+Usage: agent [options] [command] [prompt...]
+
+Start the Cursor Agent
+
+Arguments:
+  prompt                       Initial prompt for the agent
+
+Options:
+  -v, --version                Output the version number
+  --api-key <key>              API key for authentication (can also use
+                               CURSOR_API_KEY env var)
+  -H, --header <header>        Add custom header to agent requests (format:
+                               'Name: Value', can be used multiple times)
+  -p, --print                  Print responses to console (for scripts or
+                               non-interactive use). Has access to all tools,
+                               including write and shell. (default: false)
+  --output-format <format>     Output format (only works with --print): text |
+                               json | stream-json (default: "text")
+  --stream-partial-output      Stream partial output as individual text deltas
+                               (only works with --print and stream-json format)
+                               (default: false)
+  -c, --cloud                  Start in cloud mode (open composer picker on
+                               launch) (default: false)
+  --mode <mode>                Start in the given execution mode. plan:
+                               read-only/planning (analyze, propose plans, no
+                               edits). ask: Q&A style for explanations and
+                               questions (read-only). (choices: "plan", "ask")
+  --plan                       Start in plan mode (shorthand for --mode=plan).
+                               Ignored if --cloud is passed. (default: false)
+  --resume [chatId]            Select a session to resume (default: false)
+  --continue                   Continue previous session (default: false)
+  --model <model>              Model to use (e.g., gpt-5, sonnet-4,
+                               sonnet-4-thinking)
+  --list-models                List available models and exit (default: false)
+  -f, --force                  Force allow commands unless explicitly denied
+                               (default: false)
+  --yolo                       Alias for --force (Run Everything) (default:
+                               false)
+  --sandbox <mode>             Explicitly enable or disable sandbox mode
+                               (overrides config) (choices: "enabled",
+                               "disabled")
+  --approve-mcps               Automatically approve all MCP servers (default:
+                               false)
+  --trust                      Trust the current workspace without prompting
+                               (only works with --print/headless mode) (default:
+                               false)
+  --workspace <path>           Workspace directory to use (defaults to current
+                               working directory)
+  -w, --worktree [name]        Start in an isolated git worktree at
+                               ~/.cursor/worktrees/<reponame>/<name>. If
+                               omitted, a name is generated.
+  --worktree-base <branch>     Branch or ref to base the new worktree on
+                               (default: current HEAD)
+  --skip-worktree-setup        Skip running worktree setup scripts from
+                               .cursor/worktrees.json (default: false)
+  -h, --help                   Display help for command
+
+Commands:
+  install-shell-integration    Install shell integration to ~/.zshrc
+  uninstall-shell-integration  Remove shell integration from ~/.zshrc
+  login                        Authenticate with Cursor. Set NO_OPEN_BROWSER to
+                               disable browser opening.
+  logout                       Sign out and clear stored authentication
+  mcp                          Manage MCP servers
+  status|whoami                View authentication status
+  models                       List available models for this account
+  about                        Display version, system, and account information
+  update                       Update Cursor Agent to the latest version
+  create-chat                  Create a new empty chat and return its ID
+  generate-rule|rule           Generate a new Cursor rule with interactive
+                               prompts
+  agent [prompt...]            Start the Cursor Agent
+  ls                           Resume a chat session
+  resume                       Resume the latest chat session
+  help [command]               Display help for command
+
+=== LIST MODELS ===
+[2K[GLoading models…
+[2K[1A[2K[GAvailable models
+
+auto - Auto
+composer-2-fast - Composer 2 Fast  (default)
+composer-2 - Composer 2
+composer-1.5 - Composer 1.5
+gpt-5.3-codex-low - GPT-5.3 Codex Low
+gpt-5.3-codex-low-fast - GPT-5.3 Codex Low Fast
+gpt-5.3-codex - GPT-5.3 Codex  (current)
+gpt-5.3-codex-fast - GPT-5.3 Codex Fast
+gpt-5.3-codex-high - GPT-5.3 Codex High
+gpt-5.3-codex-high-fast - GPT-5.3 Codex High Fast
+gpt-5.3-codex-xhigh - GPT-5.3 Codex Extra High
+gpt-5.3-codex-xhigh-fast - GPT-5.3 Codex Extra High Fast
+gpt-5.2 - GPT-5.2
+gpt-5.3-codex-spark-preview-low - GPT-5.3 Codex Spark Low
+gpt-5.3-codex-spark-preview - GPT-5.3 Codex Spark
+gpt-5.3-codex-spark-preview-high - GPT-5.3 Codex Spark High
+gpt-5.3-codex-spark-preview-xhigh - GPT-5.3 Codex Spark Extra High
+gpt-5.2-codex-low - GPT-5.2 Codex Low
+gpt-5.2-codex-low-fast - GPT-5.2 Codex Low Fast
+gpt-5.2-codex - GPT-5.2 Codex
+gpt-5.2-codex-fast - GPT-5.2 Codex Fast
+gpt-5.2-codex-high - GPT-5.2 Codex High
+gpt-5.2-codex-high-fast - GPT-5.2 Codex High Fast
+gpt-5.2-codex-xhigh - GPT-5.2 Codex Extra High
+gpt-5.2-codex-xhigh-fast - GPT-5.2 Codex Extra High Fast
+gpt-5.1-codex-max-low - GPT-5.1 Codex Max Low
+gpt-5.1-codex-max-low-fast - GPT-5.1 Codex Max Low Fast
+gpt-5.1-codex-max-medium - GPT-5.1 Codex Max
+gpt-5.1-codex-max-medium-fast - GPT-5.1 Codex Max Medium Fast
+gpt-5.1-codex-max-high - GPT-5.1 Codex Max High
+gpt-5.1-codex-max-high-fast - GPT-5.1 Codex Max High Fast
+gpt-5.1-codex-max-xhigh - GPT-5.1 Codex Max Extra High
+gpt-5.1-codex-max-xhigh-fast - GPT-5.1 Codex Max Extra High Fast
+gpt-5.4-high - GPT-5.4 1M High
+gpt-5.4-high-fast - GPT-5.4 High Fast
+gpt-5.4-xhigh-fast - GPT-5.4 Extra High Fast
+claude-4.6-opus-high-thinking - Opus 4.6 1M Thinking
+gpt-5.4-low - GPT-5.4 1M Low
+gpt-5.4-medium - GPT-5.4 1M
+gpt-5.4-medium-fast - GPT-5.4 Fast
+gpt-5.4-xhigh - GPT-5.4 1M Extra High
+claude-4.6-sonnet-medium - Sonnet 4.6 1M
+claude-4.6-sonnet-medium-thinking - Sonnet 4.6 1M Thinking
+claude-4.6-opus-high - Opus 4.6 1M
+claude-4.6-opus-max - Opus 4.6 1M Max
+claude-4.6-opus-max-thinking - Opus 4.6 1M Max Thinking
+claude-4.5-opus-high - Opus 4.5
+claude-4.5-opus-high-thinking - Opus 4.5 Thinking
+gpt-5.2-low - GPT-5.2 Low
+gpt-5.2-low-fast - GPT-5.2 Low Fast
+gpt-5.2-fast - GPT-5.2 Fast
+gpt-5.2-high - GPT-5.2 High
+gpt-5.2-high-fast - GPT-5.2 High Fast
+gpt-5.2-xhigh - GPT-5.2 Extra High
+gpt-5.2-xhigh-fast - GPT-5.2 Extra High Fast
+gemini-3.1-pro - Gemini 3.1 Pro
+gpt-5.4-mini-none - GPT-5.4 Mini None
+gpt-5.4-mini-low - GPT-5.4 Mini Low
+gpt-5.4-mini-medium - GPT-5.4 Mini
+gpt-5.4-mini-high - GPT-5.4 Mini High
+gpt-5.4-mini-xhigh - GPT-5.4 Mini Extra High
+gpt-5.4-nano-none - GPT-5.4 Nano None
+gpt-5.4-nano-low - GPT-5.4 Nano Low
+gpt-5.4-nano-medium - GPT-5.4 Nano
+gpt-5.4-nano-high - GPT-5.4 Nano High
+gpt-5.4-nano-xhigh - GPT-5.4 Nano Extra High
+grok-4-20 - Grok 4.20
+grok-4-20-thinking - Grok 4.20 Thinking
+claude-4.5-sonnet - Sonnet 4.5 1M
+claude-4.5-sonnet-thinking - Sonnet 4.5 1M Thinking
+gpt-5.1-low - GPT-5.1 Low
+gpt-5.1 - GPT-5.1
+gpt-5.1-high - GPT-5.1 High
+gemini-3-flash - Gemini 3 Flash
+gpt-5.1-codex-mini-low - GPT-5.1 Codex Mini Low
+gpt-5.1-codex-mini - GPT-5.1 Codex Mini
+gpt-5.1-codex-mini-high - GPT-5.1 Codex Mini High
+claude-4-sonnet - Sonnet 4
+claude-4-sonnet-1m - Sonnet 4 1M
+claude-4-sonnet-thinking - Sonnet 4 Thinking
+claude-4-sonnet-1m-thinking - Sonnet 4 1M Thinking
+gpt-5-mini - GPT-5 Mini
+kimi-k2.5 - Kimi K2.5
+
+Tip: use --model <id> (or /model <id> in interactive mode) to switch.
