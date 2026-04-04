@@ -1,5 +1,5 @@
 === VERSION ===
-2.1.90 (Claude Code)
+2.1.92 (Claude Code)
 
 === HELP ===
 Usage: claude [options] [command] [prompt]
@@ -46,9 +46,10 @@ Options:
   --no-chrome                                       Disable Claude in Chrome integration
   --no-session-persistence                          Disable session persistence - sessions will not be saved to disk and cannot be resumed (only works with --print)
   --output-format <format>                          Output format (only works with --print): "text" (default), "json" (single result), or "stream-json" (realtime streaming) (choices: "text", "json", "stream-json")
-  --permission-mode <mode>                          Permission mode to use for the session (choices: "acceptEdits", "bypassPermissions", "default", "dontAsk", "plan", "auto")
+  --permission-mode <mode>                          Permission mode to use for the session (choices: "acceptEdits", "auto", "bypassPermissions", "default", "dontAsk", "plan")
   --plugin-dir <path>                               Load plugins from a directory for this session only (repeatable: --plugin-dir A --plugin-dir B) (default: [])
   -p, --print                                       Print response and exit (useful for pipes). Note: The workspace trust dialog is skipped when Claude is run with the -p mode. Only use this flag in directories you trust.
+  --remote-control-session-name-prefix <prefix>     Prefix for auto-generated Remote Control session names (default: hostname)
   --replay-user-messages                            Re-emit user messages from stdin back on stdout for acknowledgment (only works with --input-format=stream-json and --output-format=stream-json)
   -r, --resume [value]                              Resume a conversation by session ID, or open interactive picker with optional search term
   --session-id <uuid>                               Use a specific session ID for the conversation (must be a valid UUID)
@@ -72,4 +73,4 @@ Commands:
   plugin|plugins                                    Manage Claude Code plugins
   setup-token                                       Set up a long-lived authentication token (requires Claude subscription)
   update|upgrade                                    Check for updates and install if available
-LAST_RELEASE=v2.1.90
+LAST_RELEASE=v2.1.92
