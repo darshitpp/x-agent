@@ -32,6 +32,12 @@ jobs:
           - cli: junie
             install: "curl -fsSL https://junie.jetbrains.com/install.sh | bash"
             repo: JetBrains/junie
+          - cli: qwen
+            install: "npm install -g @qwen-code/qwen"
+            repo: QwenLM/qwen-code
+          - cli: antigravity
+            install: "npm install -g @antigravity/cli"
+            repo: ""
     steps:
       - uses: actions/checkout@v4
 

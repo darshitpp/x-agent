@@ -3,8 +3,8 @@
 Let your AI coding agent talk to other AI coding agents.
 
 x-agent is a set of [agentskills.io](https://agentskills.io) skills that enable any AI CLI tool — Codex, Cursor, Claude
-Code, Gemini CLI, Junie — to delegate tasks to or get second opinions from the others. Install it once, and your agent
-gains the ability to call any of the other four.
+Code, Gemini CLI, Junie, Qwen Code, Antigravity — to delegate tasks to or get second opinions from the others. Install it once, and your agent
+gains the ability to call any of the other six.
 
 ## Why
 
@@ -33,13 +33,15 @@ adds a round-trip to another CLI, so use it when the extra signal is worth the t
 
 ## Supported CLIs
 
-| CLI          | Command  | Default Model     | Notes                                           |
-|--------------|----------|-------------------|-------------------------------------------------|
-| OpenAI Codex | `codex`  | `o4-mini`         | OpenAI models only                              |
-| Cursor Agent | `agent`  | `composer-2-fast` | Multi-provider (OpenAI, Anthropic, Google, xAI) |
-| Claude Code  | `claude` | `sonnet`          | Anthropic models                                |
-| Gemini CLI   | `gemini` | `gemini-2.5-pro`  | Google models, auto-routing                     |
-| Junie        | `junie`  | Junie default     | LLM-agnostic, BYOK support                      |
+| CLI            | Command       | Default Model        | Notes                                                    |
+|----------------|---------------|----------------------|----------------------------------------------------------|
+| OpenAI Codex   | `codex`       | `o4-mini`            | OpenAI models only                                       |
+| Cursor Agent   | `agent`       | `composer-2-fast`    | Multi-provider (OpenAI, Anthropic, Google, xAI)          |
+| Claude Code    | `claude`      | `sonnet`             | Anthropic models                                         |
+| Gemini CLI     | `gemini`      | `gemini-2.5-pro`     | Google models, auto-routing                              |
+| Junie          | `junie`       | Junie default        | LLM-agnostic, BYOK support                               |
+| Qwen Code      | `qwen`        | Qwen default         | Qwen model family, `--yolo` for auto-approve             |
+| Antigravity    | `antigravity` | Antigravity default  | Uses `chat` subcommand, model TBD                        |
 
 ## How to use it
 
@@ -94,7 +96,7 @@ other agents:
 npx skills add darshitpp/x-agent
 ```
 
-This auto-detects the agent and installs all five skills in the correct location. No manual setup needed.
+This auto-detects the agent and installs all seven skills in the correct location. No manual setup needed.
 
 ### Claude Code (manual)
 
@@ -115,7 +117,7 @@ git clone https://github.com/darshitpp/x-agent.git .claude/skills/x-agent
 ```
 
 After installation, the skills appear automatically in Claude Code's available skills list. Each CLI has its own skill (
-`codex`, `cursor`, `claude`, `gemini`, `junie`) that triggers based on context.
+`codex`, `cursor`, `claude`, `gemini`, `junie`, `qwen`, `antigravity`) that triggers based on context.
 
 To update later:
 
@@ -138,13 +140,17 @@ x-agent/
 ├── claude/SKILL.md                   # Thin entry point (~27 lines)
 ├── gemini/SKILL.md                   # Thin entry point (~27 lines)
 ├── junie/SKILL.md                    # Thin entry point (~27 lines)
+├── qwen/SKILL.md                     # Thin entry point (~27 lines)
+├── antigravity/SKILL.md              # Thin entry point (~27 lines)
 ├── references/
 │   ├── shared-procedure.md           # Core procedure (~105 lines)
 │   ├── cli-codex.md                  # Codex CLI identity, invocation, version matrix
 │   ├── cli-cursor.md                 # Cursor Agent CLI identity, invocation, version matrix
 │   ├── cli-claude.md                 # Claude Code CLI identity, invocation, version matrix
 │   ├── cli-gemini.md                 # Gemini CLI identity, invocation, version matrix
-│   └── cli-junie.md                  # Junie CLI identity, invocation, version matrix
+│   ├── cli-junie.md                  # Junie CLI identity, invocation, version matrix
+│   ├── cli-qwen.md                   # Qwen Code CLI identity, invocation, version matrix
+│   └── cli-antigravity.md            # Antigravity CLI identity, invocation, version matrix
 ├── scripts/
 │   ├── validate-metadata.py          # Validates SKILL.md frontmatter
 │   ├── detect-updates.sh             # Diffs CLI snapshots against stored versions
@@ -155,6 +161,8 @@ x-agent/
 │   ├── claude-snapshot.txt           # Claude --help/--version output
 │   ├── gemini-snapshot.txt           # Gemini --help/--version output
 │   ├── junie-snapshot.txt            # Junie --help/--version output
+│   ├── qwen-snapshot.txt             # Qwen --help/--version output
+│   ├── antigravity-snapshot.txt      # Antigravity --help/--version output
 │   └── result-template.md            # Output template for validation/delegation results
 ├── .github/workflows/
 │   └── sync-cli-updates.yml          # Weekly CLI update detection + PR creation
@@ -196,7 +204,7 @@ a `SKILL.md` entry point.
 | Project                 | `.claude/skills/x-agent/`   |
 
 **Invoke:** Ask naturally ("get a second opinion from Cursor") or explicitly with `/codex`, `/cursor`, `/claude`,
-`/gemini`, `/junie`. Claude loads the skill automatically when relevant.
+`/gemini`, `/junie`, `/qwen`, `/antigravity`. Claude loads the skill automatically when relevant.
 
 [Claude Code skills docs](https://code.claude.com/docs/en/skills)
 
