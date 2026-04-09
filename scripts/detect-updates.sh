@@ -63,11 +63,12 @@ for i in "${!CLIS[@]}"; do
     CHANGED=1
   else
     SNAPSHOT_FILTERED=$(mktemp)
-    grep -v '^LAST_RELEASE=' "$SNAPSHOT" > "$SNAPSHOT_FILTERED" || true
+    grep -v 'LAST_RELEASE=' "$SNAPSHOT" > "$SNAPSHOT_FILTERED" || true
     if ! diff -q "$CURRENT" "$SNAPSHOT_FILTERED" &>/dev/null; then
       echo "CHANGED: $CLI"
-      # Preserve metadata lines from existing snapshot
-      grep '^LAST_RELEASE=' "$SNAPSHOT" >> "$CURRENT" 2>/dev/null || true
+      # Preserve metadata lines from existing snapshot, ensuring they start on a new line
+      printf '\n' >> "$CURRENT"
+      grep 'LAST_RELEASE=' "$SNAPSHOT" >> "$CURRENT" 2>/dev/null || true
       cp "$CURRENT" "$SNAPSHOT"
       CHANGED=1
     fi

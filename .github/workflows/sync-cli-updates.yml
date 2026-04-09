@@ -72,8 +72,8 @@ jobs:
           STORED=$(grep -m1 'LAST_RELEASE=' "$SNAPSHOT_FILE" 2>/dev/null | cut -d= -f2 || echo "none")
           if [ "$LATEST" != "$STORED" ] && [ "$LATEST" != "unknown" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
-            sed -i '/^LAST_RELEASE=/d' "$SNAPSHOT_FILE" 2>/dev/null || true
-            echo "LAST_RELEASE=$LATEST" >> "$SNAPSHOT_FILE"
+            sed -i '/LAST_RELEASE=/d' "$SNAPSHOT_FILE" 2>/dev/null || true
+            printf '\nLAST_RELEASE=%s\n' "$LATEST" >> "$SNAPSHOT_FILE"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
