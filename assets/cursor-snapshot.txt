@@ -1,5 +1,5 @@
 === VERSION ===
-2026.03.30-a5d3e17
+2026.04.08-a41fba1
 
 === HELP ===
 Usage: agent [options] [command] [prompt...]

@@ -1,5 +1,5 @@
 === VERSION ===
-Junie version: 888.219
+Junie version: 1321.57
 
 === HELP ===
 Usage: junie [<options>] [<task>] 
@@ -23,9 +23,10 @@ Non-interactive mode:   junie "Fix the bug in the login function"
 Core:
   --task=<text>         Task description (alternative to positional argument)
   --session-id=<text>   Id of the previously executed session to follow up
+  --resume              Resume the last session (or the session specified by --session-id)
   --brave               Turns on Brave Mode (interactive only)
+  --use-local-cache     Enable local AI caches even when config.hasLocalCache is false
   -p, --project=<text>  Project directory (default: current directory)
-  --model=<text>        Model to use for the primary agent
 
 Authentication:
   -a, --auth=<text>            Authentication token, visit https://junie.jetbrains.com/cli to generate a token.
@@ -37,7 +38,7 @@ Authentication:
 
 System (non-interactive only):
   --input-format=<text>      Input format: text or json
-  --output-format=<text>     Output format: text, json
+  --output-format=<text>     Output format: text, json, json-stream
   --json-output-file=<text>  The file where JSON output is written. If not specified, output is printed to stdout
   -t, --timeout=<int>        Time limit in millis
   -c, --cache-dir=<text>     Caching directory for Junie
@@ -46,17 +47,43 @@ System (non-interactive only):
 
 Misc:
   --guidelines-filename=<text>  
+  --review                      Run a code review
   -h, --help                    Show this message and exit
+
+Configuration:
+  --config-location=<text>          Additional configuration file location (can be specified multiple times)
+  --config-default-locations=<[true|false]>  Whether to load configuration from default locations (~/.junie/config.json and <project>/.junie/config.json)
 
 Acp:
   --acp=<[true|false]>  Run in ACP mode (Agent Communication Protocol) for IDE integrations.
+
+Model:
+  --model=<text>                    Model to use for the primary agent
+  --provider=<text>                 BYOK provider to use. Possible values: openai, anthropic, google, xai, openrouter, copilot. If not set, the Junie or Custom model provider is used.
+  --model-default-locations=<text>  Enable or disable adding custom models from default locations (per user / per project).
+  --model-location=<text>           Additional folders where custom models should be found. Can be specified multiple times.
 
 MCP:
   --mcp-default-locations=<text>  Enable or disable adding MCP servers from default locations (per user / per project).
   --mcp-location=<text>           Additional folders where MCP servers should be found. Can be specified multiple times.
 
+Extensions:
+  --extensions-default-location=<text>  Override the default extensions directory (default: ~/.junie/extensions).
+
+Skills:
+  --skill-default-locations=<text>  Enable or disable adding skills from default locations (per user / per project).
+  --skill-location=<text>           Additional folders where skills should be found. Can be specified multiple times.
+
+Commands:
+  --command-default-location=<text>  Enable or disable adding commands from default locations (per user / per project).
+  --command-location=<text>         Additional folders where commands should be found. Can be specified multiple times.
+
+Custom agents:
+  --agent-default-location=<text>  Enable or disable adding agents from default locations (per user / per project).
+  --agent-location=<text>          Additional folders where agents should be found. Can be specified multiple times.
+
 Arguments:
   <task>  Task description (optional positional argument)
           Example: junie "Fix the bug in the login function"
 
-LAST_RELEASE=1345.1
+LAST_RELEASE=1375.1

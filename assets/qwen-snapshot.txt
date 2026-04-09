@@ -66,4 +66,4 @@ Options:
       --auth-type                       Authentication type  [string] [choices: "openai", "anthropic", "qwen-oauth", "gemini", "vertex-ai"]
   -v, --version                         Show version number  [boolean]
   -h, --help                            Show help  [boolean]
-LAST_RELEASE=v0.14.0
+LAST_RELEASE=v0.14.2

@@ -1,5 +1,5 @@
 === VERSION ===
-2.1.92 (Claude Code)
+2.1.97 (Claude Code)
 
 === HELP ===
 Usage: claude [options] [command] [prompt]
@@ -73,4 +73,4 @@ Commands:
   plugin|plugins                                    Manage Claude Code plugins
   setup-token                                       Set up a long-lived authentication token (requires Claude subscription)
   update|upgrade                                    Check for updates and install if available
-LAST_RELEASE=v2.1.92
+LAST_RELEASE=v2.1.97
