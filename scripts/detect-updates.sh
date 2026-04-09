@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # detect-updates.sh — Detect CLI changes by diffing current output against stored snapshots
 # Usage: ./detect-updates.sh [cli-name]
-# If cli-name is omitted, checks all eight CLIs.
+# If cli-name is omitted, checks all seven CLIs.
 # Exits 0 if no changes, 1 if changes detected. Outputs changed CLI names to stdout.
 
 set -euo pipefail
@@ -9,11 +9,11 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ASSETS_DIR="$SCRIPT_DIR/../assets"
 
-CLIS=("codex" "cursor" "claude" "gemini" "junie" "qwen" "antigravity" "opencode")
-CLI_COMMANDS=("codex" "agent" "claude" "gemini" "junie" "qwen" "antigravity" "opencode")
+CLIS=("codex" "cursor" "claude" "gemini" "junie" "qwen" "opencode")
+CLI_COMMANDS=("codex" "agent" "claude" "gemini" "junie" "qwen" "opencode")
 # Which CLIs support --list-models without auth in CI
 # cursor has --list-models but requires auth — skip in CI, rely on runtime discovery
-LIST_MODELS_SUPPORTED=("false" "false" "false" "false" "false" "false" "false" "false")
+LIST_MODELS_SUPPORTED=("false" "false" "false" "false" "false" "false" "false")
 
 if [ "${1:-}" != "" ]; then
   case "$1" in
@@ -23,7 +23,6 @@ if [ "${1:-}" != "" ]; then
     gemini)      CLIS=("gemini");      CLI_COMMANDS=("gemini");      LIST_MODELS_SUPPORTED=("false") ;;
     junie)       CLIS=("junie");       CLI_COMMANDS=("junie");       LIST_MODELS_SUPPORTED=("false") ;;
     qwen)        CLIS=("qwen");        CLI_COMMANDS=("qwen");        LIST_MODELS_SUPPORTED=("false") ;;
-    antigravity) CLIS=("antigravity"); CLI_COMMANDS=("antigravity"); LIST_MODELS_SUPPORTED=("false") ;;
     opencode)    CLIS=("opencode");    CLI_COMMANDS=("opencode");    LIST_MODELS_SUPPORTED=("false") ;;
     *) echo "Unknown CLI: $1" >&2; exit 2 ;;
   esac

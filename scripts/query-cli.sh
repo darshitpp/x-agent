@@ -2,7 +2,7 @@
 # query-cli.sh — Uniform wrapper for querying any CLI in print mode
 # Usage: ./query-cli.sh <cli-name> <mode> <model> <prompt-file> [timeout]
 #
-# cli-name: codex | cursor | claude | gemini | junie | qwen | antigravity | opencode
+# cli-name: codex | cursor | claude | gemini | junie | qwen | opencode
 # mode:     validation | delegation
 # model:    model ID to use
 # prompt-file: path to file containing the prompt
@@ -94,20 +94,12 @@ case "$CLI_NAME" in
       run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | qwen --model "$MODEL"'
     fi
     ;;
-  antigravity)
-    # Antigravity CLI does not expose an internal --timeout flag; relies on external process kill.
-    if [ "$MODE" = "delegation" ]; then
-      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | antigravity chat --model "$MODEL" --yolo'
-    else
-      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | antigravity chat --model "$MODEL"'
-    fi
-    ;;
   opencode)
     # OpenCode auto-approves in non-interactive run mode; no separate delegation flag needed.
     "$TIMEOUT_CMD" "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | opencode run -m "$MODEL" --format default 2>/dev/null'
     ;;
   *)
-    echo "Error: Unknown CLI '$CLI_NAME'. Supported: codex, cursor, claude, gemini, junie, qwen, antigravity, opencode" >&2
+    echo "Error: Unknown CLI '$CLI_NAME'. Supported: codex, cursor, claude, gemini, junie, qwen, opencode" >&2
     exit 1
     ;;
 esac

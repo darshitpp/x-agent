@@ -3,8 +3,8 @@
 Let your AI coding agent talk to other AI coding agents.
 
 x-agent is a set of [agentskills.io](https://agentskills.io) skills that enable any AI CLI tool — Codex, Cursor, Claude
-Code, Gemini CLI, Junie, Qwen Code, Antigravity, OpenCode — to delegate tasks to or get second opinions from the others. Install it once, and your agent
-gains the ability to call any of the other seven.
+Code, Gemini CLI, Junie, Qwen Code, OpenCode — to delegate tasks to or get second opinions from the others. Install it once, and your agent
+gains the ability to call any of the other six.
 
 ## Why
 
@@ -41,7 +41,6 @@ adds a round-trip to another CLI, so use it when the extra signal is worth the t
 | Gemini CLI     | `gemini`      | `gemini-2.5-pro`     | Google models, auto-routing                              |
 | Junie          | `junie`       | Junie default        | LLM-agnostic, BYOK support                               |
 | Qwen Code      | `qwen`        | Qwen default         | Qwen model family, `--yolo` for auto-approve             |
-| Antigravity    | `antigravity` | Antigravity default  | Uses `chat` subcommand, model TBD                        |
 | OpenCode       | `opencode`    | OpenCode default     | Multi-provider, uses `run` subcommand                    |
 
 ## How to use it
@@ -97,7 +96,7 @@ other agents:
 npx skills add darshitpp/x-agent
 ```
 
-This auto-detects the agent and installs all eight skills in the correct location. No manual setup needed.
+This auto-detects the agent and installs all seven skills in the correct location. No manual setup needed.
 
 ### Claude Code (manual)
 
@@ -118,7 +117,7 @@ git clone https://github.com/darshitpp/x-agent.git .claude/skills/x-agent
 ```
 
 After installation, the skills appear automatically in Claude Code's available skills list. Each CLI has its own skill (
-`codex`, `cursor`, `claude`, `gemini`, `junie`, `qwen`, `antigravity`, `opencode`) that triggers based on context.
+`codex`, `cursor`, `claude`, `gemini`, `junie`, `qwen`, `opencode`) that triggers based on context.
 
 To update later:
 
@@ -142,7 +141,6 @@ x-agent/
 ├── gemini/SKILL.md                   # Thin entry point (~27 lines)
 ├── junie/SKILL.md                    # Thin entry point (~27 lines)
 ├── qwen/SKILL.md                     # Thin entry point (~27 lines)
-├── antigravity/SKILL.md              # Thin entry point (~27 lines)
 ├── opencode/SKILL.md                # Thin entry point (~27 lines)
 ├── references/
 │   ├── shared-procedure.md           # Core procedure (~105 lines)
@@ -152,7 +150,6 @@ x-agent/
 │   ├── cli-gemini.md                 # Gemini CLI identity, invocation, version matrix
 │   ├── cli-junie.md                  # Junie CLI identity, invocation, version matrix
 │   ├── cli-qwen.md                   # Qwen Code CLI identity, invocation, version matrix
-│   ├── cli-antigravity.md            # Antigravity CLI identity, invocation, version matrix
 │   └── cli-opencode.md              # OpenCode CLI identity, invocation, version matrix
 ├── scripts/
 │   ├── validate-metadata.py          # Validates SKILL.md frontmatter
@@ -165,7 +162,6 @@ x-agent/
 │   ├── gemini-snapshot.txt           # Gemini --help/--version output
 │   ├── junie-snapshot.txt            # Junie --help/--version output
 │   ├── qwen-snapshot.txt             # Qwen --help/--version output
-│   ├── antigravity-snapshot.txt      # Antigravity --help/--version output
 │   ├── opencode-snapshot.txt        # OpenCode --help/--version output
 │   └── result-template.md            # Output template for validation/delegation results
 ├── .github/workflows/
@@ -208,7 +204,7 @@ a `SKILL.md` entry point.
 | Project                 | `.claude/skills/x-agent/`   |
 
 **Invoke:** Ask naturally ("get a second opinion from Cursor") or explicitly with `/codex`, `/cursor`, `/claude`,
-`/gemini`, `/junie`, `/qwen`, `/antigravity`, `/opencode`. Claude loads the skill automatically when relevant.
+`/gemini`, `/junie`, `/qwen`, `/opencode`. Claude loads the skill automatically when relevant.
 
 [Claude Code skills docs](https://code.claude.com/docs/en/skills)
 
