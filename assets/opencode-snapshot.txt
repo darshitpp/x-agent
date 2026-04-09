@@ -1,12 +1,14 @@
 === VERSION ===
-1.3.10
+1.4.1
 
 === HELP ===
-
-▄
+Performing one time database migration, may take a few minutes...
+sqlite-migration:done
+Database migration complete.
+⠀                                ▄     
 █▀▀█ █▀▀█ █▀▀█ █▀▀▄ █▀▀▀ █▀▀█ █▀▀█ █▀▀█
 █  █ █  █ █▀▀▀ █  █ █    █  █ █  █ █▀▀▀
-▀▀▀▀ █▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀
+▀▀▀▀ █▀▀▀ ▀▀▀▀ ▀  ▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀
 
 Commands:
   opencode completion          generate shell completion script
@@ -53,4 +55,4 @@ Options:
   -s, --session      session id to continue                                                 [string]
       --fork         fork the session when continuing (use with --continue or --session)   [boolean]
       --prompt       prompt to use                                                          [string]
-      --agent        agent to use                                                           [string]
+      --agent        agent to use                                                           [string]LAST_RELEASE=v1.4.1
