@@ -96,7 +96,7 @@ case "$CLI_NAME" in
     ;;
   opencode)
     # OpenCode auto-approves in non-interactive run mode; no separate delegation flag needed.
-    "$TIMEOUT_CMD" "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | opencode run -m "$MODEL" --format default 2>/dev/null'
+    run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | opencode run -m "$MODEL" --format default 2>/dev/null'
     ;;
   *)
     echo "Error: Unknown CLI '$CLI_NAME'. Supported: codex, cursor, claude, gemini, junie, qwen, opencode" >&2
