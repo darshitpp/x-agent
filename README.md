@@ -154,7 +154,8 @@ x-agent/
 ├── scripts/
 │   ├── validate-metadata.py          # Validates SKILL.md frontmatter
 │   ├── detect-updates.sh             # Diffs CLI snapshots against stored versions
-│   └── query-cli.sh                  # Uniform wrapper for querying any CLI
+│   ├── query-cli.sh                  # Uniform wrapper for querying any CLI
+│   └── run-workflow.sh               # Run GitHub Actions workflows locally via act
 ├── assets/
 │   ├── codex-snapshot.txt            # Codex --help/--version output
 │   ├── cursor-snapshot.txt           # Cursor --help/--version output
@@ -164,8 +165,12 @@ x-agent/
 │   ├── qwen-snapshot.txt             # Qwen --help/--version output
 │   ├── opencode-snapshot.txt        # OpenCode --help/--version output
 │   └── result-template.md            # Output template for validation/delegation results
+├── tests/
+│   ├── bats/                          # BATS shell script tests
+│   └── pytest/                        # Python tests for validate-metadata.py
 ├── .github/workflows/
-│   └── sync-cli-updates.yml          # Weekly CLI update detection + PR creation
+│   ├── sync-cli-updates.yml          # Weekly CLI update detection + PR creation
+│   └── run-tests.yml                 # CI test suite (BATS + pytest, ubuntu + macOS)
 ├── README.md
 ├── LICENSE
 └── .gitignore
@@ -181,15 +186,41 @@ The included workflow (`.github/workflows/sync-cli-updates.yml`) runs weekly on 
 
 Trigger manually anytime from **Actions > Sync CLI Updates > Run workflow**.
 
+## Testing
+
+The test suite covers all four scripts with no external CLI dependencies — everything is mocked.
+
+**Prerequisites:**
+
+```bash
+brew install bats-core
+brew tap bats-core/bats-core && brew install bats-support bats-assert
+pip3 install pytest pyyaml
+```
+
+**Run tests:**
+
+```bash
+# Shell script tests (BATS)
+BATS_LIB_PATH="/opt/homebrew/lib" bats tests/bats/ --recursive
+
+# Python tests (pytest)
+pytest tests/pytest/ -v
+```
+
+Tests also run automatically on every PR via GitHub Actions (ubuntu + macOS).
+
 ## Adding a New CLI
 
 1. Create `<cli-name>/SKILL.md` following the existing pattern (copy any existing one)
 2. Create `references/cli-<cli-name>.md` with the four required sections (Identity, Model Selection, Invocation
    Template, Version Matrix)
 3. Add the CLI to `scripts/detect-updates.sh` arrays (`CLIS`, `CLI_COMMANDS`, `LIST_MODELS_SUPPORTED`)
-4. Add the CLI to the GitHub Actions workflow matrix in `sync-cli-updates.yml`
-5. Run `scripts/detect-updates.sh <cli-name>` to generate the initial snapshot
-6. Validate frontmatter: `python3 scripts/validate-metadata.py --name <name> --description "<desc>"`
+4. Add the CLI's invocation case to `scripts/query-cli.sh`
+5. Add the CLI to the GitHub Actions workflow matrix in `sync-cli-updates.yml`
+6. Run `scripts/detect-updates.sh <cli-name>` to generate the initial snapshot
+7. Validate frontmatter: `python3 scripts/validate-metadata.py --name <name> --description "<desc>"`
+8. Add tests for the new CLI in `tests/bats/query_cli.bats` and run the test suite
 
 ## Usage with Different Agents
 

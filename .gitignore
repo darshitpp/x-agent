@@ -10,5 +10,9 @@ Thumbs.db
 .vscode/
 *.swp
 
+# Python
+__pycache__/
+.pytest_cache/
+
 # Claude Code
 .claude/
