@@ -56,5 +56,4 @@ Options:
       --fork         fork the session when continuing (use with --continue or --session)   [boolean]
       --prompt       prompt to use                                                          [string]
       --agent        agent to use                                                           [string]
-
 LAST_RELEASE=v1.4.3
