@@ -1,5 +1,5 @@
 === VERSION ===
-2.1.97 (Claude Code)
+2.1.104 (Claude Code)
 
 === HELP ===
 Usage: claude [options] [command] [prompt]
@@ -28,6 +28,7 @@ Options:
   --disable-slash-commands                          Disable all skills
   --disallowedTools, --disallowed-tools <tools...>  Comma or space-separated list of tool names to deny (e.g. "Bash(git:*) Edit")
   --effort <level>                                  Effort level for the current session (low, medium, high, max)
+  --exclude-dynamic-system-prompt-sections          Move per-machine sections (cwd, env info, memory paths, git status) from the system prompt into the first user message. Improves cross-user prompt-cache reuse. Only applies with the default system prompt (ignored with --system-prompt). (default: false)
   --fallback-model <model>                          Enable automatic fallback to specified model when default model is overloaded (only works with --print)
   --file <specs...>                                 File resources to download at startup. Format: file_id:relative_path (e.g., --file file_abc:doc.txt file_def:img.png)
   --fork-session                                    When resuming, create a new session ID instead of reusing the original (use with --resume or --continue)
@@ -73,4 +74,4 @@ Commands:
   plugin|plugins                                    Manage Claude Code plugins
   setup-token                                       Set up a long-lived authentication token (requires Claude subscription)
   update|upgrade                                    Check for updates and install if available
-LAST_RELEASE=v2.1.97
+LAST_RELEASE=v2.1.104
