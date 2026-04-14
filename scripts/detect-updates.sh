@@ -67,7 +67,8 @@ for i in "${!CLIS[@]}"; do
     if ! diff -q "$CURRENT" "$SNAPSHOT_FILTERED" &>/dev/null; then
       echo "CHANGED: $CLI"
       # Preserve metadata lines from existing snapshot, ensuring they start on a new line
-      printf '\n' >> "$CURRENT"
+      # Only add a newline if file doesn't already end with one
+      [ -n "$(tail -c 1 "$CURRENT")" ] && printf '\n' >> "$CURRENT"
       grep 'LAST_RELEASE=' "$SNAPSHOT" >> "$CURRENT" 2>/dev/null || true
       cp "$CURRENT" "$SNAPSHOT"
       CHANGED=1

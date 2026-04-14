@@ -73,7 +73,8 @@ jobs:
           if [ "$LATEST" != "$STORED" ] && [ "$LATEST" != "unknown" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
             sed -i '/LAST_RELEASE=/d' "$SNAPSHOT_FILE" 2>/dev/null || true
-            printf '\nLAST_RELEASE=%s\n' "$LATEST" >> "$SNAPSHOT_FILE"
+            [ -n "$(tail -c 1 "$SNAPSHOT_FILE")" ] && printf '\n' >> "$SNAPSHOT_FILE"
+            printf 'LAST_RELEASE=%s\n' "$LATEST" >> "$SNAPSHOT_FILE"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
