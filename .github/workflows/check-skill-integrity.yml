@@ -1,0 +1,26 @@
+name: Skill Integrity
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  integrity:
+    name: Drift & Installability Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pytest pyyaml
+
+      - name: Run skill integrity tests
+        run: pytest tests/pytest/test_skill_integrity.py -v
