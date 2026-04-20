@@ -1,5 +1,5 @@
 === VERSION ===
-Junie version: 1321.57
+Junie version: 1362.47
 
 === HELP ===
 Usage: junie [<options>] [<task>] 
@@ -86,4 +86,4 @@ Arguments:
   <task>  Task description (optional positional argument)
           Example: junie "Fix the bug in the login function"
 
-LAST_RELEASE=1402.1
+LAST_RELEASE=1460.1
