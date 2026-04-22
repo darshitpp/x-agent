@@ -1,5 +1,5 @@
 === VERSION ===
-2026.04.08-a41fba1
+2026.04.17-787b533
 
 === HELP ===
 Usage: agent [options] [command] [prompt...]
@@ -66,9 +66,9 @@ Commands:
                                disable browser opening.
   logout                       Sign out and clear stored authentication
   mcp                          Manage MCP servers
-  status|whoami                View authentication status
+  status|whoami [options]      View authentication status
   models                       List available models for this account
-  about                        Display version, system, and account information
+  about [options]              Display version, system, and account information
   update                       Update Cursor Agent to the latest version
   create-chat                  Create a new empty chat and return its ID
   generate-rule|rule           Generate a new Cursor rule with interactive

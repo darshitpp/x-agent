@@ -1,5 +1,5 @@
 === VERSION ===
-codex-cli 0.120.0
+codex-cli 0.121.0
 
 === HELP ===
 Codex CLI
@@ -15,6 +15,7 @@ Commands:
   login        Manage login
   logout       Remove stored authentication credentials
   mcp          Manage external MCP servers for Codex
+  marketplace  Manage plugin marketplaces for Codex
   mcp-server   Start Codex as an MCP server (stdio)
   app-server   [experimental] Run the app server or related tooling
   completion   Generate shell completion scripts
@@ -27,7 +28,7 @@ Commands:
   fork         Fork a previous interactive session (picker by default; use --last to fork the most
                recent)
   cloud        [EXPERIMENTAL] Browse tasks from Codex Cloud and apply changes locally
-  exec-server  [EXPERIMENTAL] Run the standalone exec-server binary
+  exec-server  [EXPERIMENTAL] Run the standalone exec-server service
   features     Inspect feature flags
   help         Print this message or the help of the given subcommand(s)
 
@@ -127,4 +128,4 @@ Options:
 
   -V, --version
           Print version
-LAST_RELEASE=rust-v0.120.0
+LAST_RELEASE=rust-v0.121.0
