@@ -1,5 +1,5 @@
 === VERSION ===
-1.14.19
+1.14.28
 
 === HELP ===
 Performing one time database migration, may take a few minutes...
@@ -56,4 +56,4 @@ Options:
       --fork         fork the session when continuing (use with --continue or --session)   [boolean]
       --prompt       prompt to use                                                          [string]
       --agent        agent to use                                                           [string]
-LAST_RELEASE=v1.14.19
+LAST_RELEASE=v1.14.28

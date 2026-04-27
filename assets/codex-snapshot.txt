@@ -1,5 +1,5 @@
 === VERSION ===
-codex-cli 0.121.0
+codex-cli 0.125.0
 
 === HELP ===
 Codex CLI
@@ -15,7 +15,7 @@ Commands:
   login        Manage login
   logout       Remove stored authentication credentials
   mcp          Manage external MCP servers for Codex
-  marketplace  Manage plugin marketplaces for Codex
+  plugin       Manage Codex plugins
   mcp-server   Start Codex as an MCP server (stdio)
   app-server   [experimental] Run the app server or related tooling
   completion   Generate shell completion scripts
@@ -67,8 +67,7 @@ Options:
           Model the agent should use
 
       --oss
-          Convenience flag to select the local open source model provider. Equivalent to -c
-          model_provider=oss; verifies a local LM Studio or Ollama server is running
+          Use open-source provider
 
       --local-provider <OSS_PROVIDER>
           Specify which local provider to use (lmstudio or ollama). If not specified with --oss,
@@ -81,6 +80,19 @@ Options:
           Select the sandbox policy to use when executing model-generated shell commands
           
           [possible values: read-only, workspace-write, danger-full-access]
+
+      --full-auto
+          Convenience alias for low-friction sandboxed automatic execution
+
+      --dangerously-bypass-approvals-and-sandbox
+          Skip all confirmation prompts and execute commands without sandboxing. EXTREMELY
+          DANGEROUS. Intended solely for running in environments that are externally sandboxed
+
+  -C, --cd <DIR>
+          Tell the agent to use the specified directory as its working root
+
+      --add-dir <DIR>
+          Additional directories that should be writable alongside the primary workspace
 
   -a, --ask-for-approval <APPROVAL_POLICY>
           Configure when the model requires human approval before executing a command
@@ -97,24 +109,9 @@ Options:
           - never:      Never ask for user approval Execution failures are immediately returned to
             the model
 
-      --full-auto
-          Convenience alias for low-friction sandboxed automatic execution (-a on-request, --sandbox
-          workspace-write)
-
-      --dangerously-bypass-approvals-and-sandbox
-          Skip all confirmation prompts and execute commands without sandboxing. EXTREMELY
-          DANGEROUS. Intended solely for running in environments that are externally sandboxed
-
-  -C, --cd <DIR>
-          Tell the agent to use the specified directory as its working root. In remote mode, the
-          path is forwarded to the server and resolved there
-
       --search
           Enable live web search. When enabled, the native Responses `web_search` tool is available
           to the model (no per‑call approval)
-
-      --add-dir <DIR>
-          Additional directories that should be writable alongside the primary workspace
 
       --no-alt-screen
           Disable alternate screen mode
@@ -128,4 +125,4 @@ Options:
 
   -V, --version
           Print version
-LAST_RELEASE=rust-v0.121.0
+LAST_RELEASE=rust-v0.125.0
