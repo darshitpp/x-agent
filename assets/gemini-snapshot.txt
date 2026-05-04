@@ -1,5 +1,5 @@
 === VERSION ===
-0.38.2
+0.39.1
 
 === HELP ===
 Usage: gemini [options] [command]
@@ -21,6 +21,7 @@ Options:
   -m, --model                     Model  [string]
   -p, --prompt                    Run in non-interactive (headless) mode with the given prompt. Appended to input on stdin (if any).  [string]
   -i, --prompt-interactive        Execute the provided prompt and continue in interactive mode  [string]
+      --skip-trust                Trust the current workspace for this session.  [boolean] [default: false]
   -w, --worktree                  Start Gemini in a new git worktree. If no name is provided, one is generated automatically.  [string]
   -s, --sandbox                   Run in sandbox?  [boolean]
   -y, --yolo                      Automatically accept all actions (aka YOLO mode, see https://www.youtube.com/watch?v=xvFZjo5PgG0 for more details)?  [boolean] [default: false]
@@ -43,4 +44,4 @@ Options:
       --accept-raw-output-risk    Suppress the security warning when using --raw-output.  [boolean]
   -v, --version                   Show version number  [boolean]
   -h, --help                      Show help  [boolean]
-LAST_RELEASE=v0.38.2
+LAST_RELEASE=v0.39.1

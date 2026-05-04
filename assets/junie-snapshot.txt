@@ -1,5 +1,5 @@
 === VERSION ===
-Junie version: 1362.47
+Junie version: 1417.47
 
 === HELP ===
 Usage: junie [<options>] [<task>] 
@@ -47,6 +47,7 @@ System (non-interactive only):
 
 Misc:
   --guidelines-filename=<text>  
+  --ide-guidelines=<text>       Path to a file whose content will be prepended to the existing guidelines.
   --review                      Run a code review
   -h, --help                    Show this message and exit
 
@@ -86,4 +87,4 @@ Arguments:
   <task>  Task description (optional positional argument)
           Example: junie "Fix the bug in the login function"
 
-LAST_RELEASE=1460.1
+LAST_RELEASE=1522.1

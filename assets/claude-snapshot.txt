@@ -1,5 +1,5 @@
 === VERSION ===
-2.1.114 (Claude Code)
+2.1.119 (Claude Code)
 
 === HELP ===
 Usage: claude [options] [command] [prompt]
@@ -65,7 +65,7 @@ Options:
   -w, --worktree [name]                             Create a new git worktree for this session (optionally specify a name)
 
 Commands:
-  agents [options]                                  List configured agents
+  agents [options]                                  Manage background and configured agents
   auth                                              Manage authentication
   auto-mode                                         Inspect auto mode classifier configuration
   doctor                                            Check the health of your Claude Code auto-updater. Note: The workspace trust dialog is skipped and stdio servers from .mcp.json are spawned for health checks. Only use this command in directories you trust.
@@ -74,4 +74,4 @@ Commands:
   plugin|plugins                                    Manage Claude Code plugins
   setup-token                                       Set up a long-lived authentication token (requires Claude subscription)
   update|upgrade                                    Check for updates and install if available
-LAST_RELEASE=v2.1.114
+LAST_RELEASE=v2.1.119
