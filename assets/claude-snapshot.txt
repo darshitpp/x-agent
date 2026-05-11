@@ -1,5 +1,5 @@
 === VERSION ===
-2.1.119 (Claude Code)
+2.1.138 (Claude Code)
 
 === HELP ===
 Usage: claude [options] [command] [prompt]
@@ -48,8 +48,10 @@ Options:
   --no-session-persistence                          Disable session persistence - sessions will not be saved to disk and cannot be resumed (only works with --print)
   --output-format <format>                          Output format (only works with --print): "text" (default), "json" (single result), or "stream-json" (realtime streaming) (choices: "text", "json", "stream-json")
   --permission-mode <mode>                          Permission mode to use for the session (choices: "acceptEdits", "auto", "bypassPermissions", "default", "dontAsk", "plan")
-  --plugin-dir <path>                               Load plugins from a directory for this session only (repeatable: --plugin-dir A --plugin-dir B) (default: [])
-  -p, --print                                       Print response and exit (useful for pipes). Note: The workspace trust dialog is skipped when Claude is run with the -p mode. Only use this flag in directories you trust.
+  --plugin-dir <path>                               Load a plugin from a directory or .zip for this session only (repeatable: --plugin-dir A --plugin-dir B.zip) (default: [])
+  --plugin-url <url>                                Fetch a plugin .zip from a URL for this session only (repeatable: --plugin-url A --plugin-url B) (default: [])
+  -p, --print                                       Print response and exit (useful for pipes). Note: The workspace trust dialog is skipped when Claude is run in non-interactive mode (via -p, or when stdout is not a TTY, e.g. piped or redirected output). Only use this in directories you trust.
+  --remote-control [name]                           Start an interactive session with Remote Control enabled (optionally named)
   --remote-control-session-name-prefix <prefix>     Prefix for auto-generated Remote Control session names (default: hostname)
   --replay-user-messages                            Re-emit user messages from stdin back on stdout for acknowledgment (only works with --input-format=stream-json and --output-format=stream-json)
   -r, --resume [value]                              Resume a conversation by session ID, or open interactive picker with optional search term
@@ -72,6 +74,8 @@ Commands:
   install [options] [target]                        Install Claude Code native build. Use [target] to specify version (stable, latest, or specific version)
   mcp                                               Configure and manage MCP servers
   plugin|plugins                                    Manage Claude Code plugins
+  project                                           Manage Claude Code project state
   setup-token                                       Set up a long-lived authentication token (requires Claude subscription)
+  ultrareview [options] [target]                    Run a cloud-hosted multi-agent code review of the current branch (or a PR number / base branch) and print the findings
   update|upgrade                                    Check for updates and install if available
-LAST_RELEASE=v2.1.119
+LAST_RELEASE=v2.1.138

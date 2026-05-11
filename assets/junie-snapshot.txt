@@ -1,5 +1,5 @@
 === VERSION ===
-Junie version: 1417.47
+Junie version: build 1543.24
 
 === HELP ===
 Usage: junie [<options>] [<task>] 
@@ -60,6 +60,7 @@ Acp:
 
 Model:
   --model=<text>                    Model to use for the primary agent
+  --effort=<text>                   Effort level to use. Possible values: low, medium, high.
   --provider=<text>                 BYOK provider to use. Possible values: openai, anthropic, google, xai, openrouter, copilot. If not set, the Junie or Custom model provider is used.
   --model-default-locations=<text>  Enable or disable adding custom models from default locations (per user / per project).
   --model-location=<text>           Additional folders where custom models should be found. Can be specified multiple times.
@@ -87,4 +88,4 @@ Arguments:
   <task>  Task description (optional positional argument)
           Example: junie "Fix the bug in the login function"
 
-LAST_RELEASE=1522.1
+LAST_RELEASE=1660.1

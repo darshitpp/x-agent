@@ -1,5 +1,5 @@
 === VERSION ===
-2026.04.17-787b533
+2026.05.09-0afadcc
 
 === HELP ===
 Usage: agent [options] [command] [prompt...]
@@ -23,14 +23,12 @@ Options:
   --stream-partial-output      Stream partial output as individual text deltas
                                (only works with --print and stream-json format)
                                (default: false)
-  -c, --cloud                  Start in cloud mode (open composer picker on
-                               launch) (default: false)
   --mode <mode>                Start in the given execution mode. plan:
                                read-only/planning (analyze, propose plans, no
                                edits). ask: Q&A style for explanations and
                                questions (read-only). (choices: "plan", "ask")
   --plan                       Start in plan mode (shorthand for --mode=plan).
-                               Ignored if --cloud is passed. (default: false)
+                               (default: false)
   --resume [chatId]            Select a session to resume (default: false)
   --continue                   Continue previous session (default: false)
   --model <model>              Model to use (e.g., gpt-5, sonnet-4,
@@ -50,6 +48,8 @@ Options:
                                false)
   --workspace <path>           Workspace directory to use (defaults to current
                                working directory)
+  --plugin-dir <path>          Load a local plugin directory (can be specified
+                               multiple times)
   -w, --worktree [name]        Start in an isolated git worktree at
                                ~/.cursor/worktrees/<reponame>/<name>. If
                                omitted, a name is generated.
