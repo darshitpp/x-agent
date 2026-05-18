@@ -1,5 +1,5 @@
 === VERSION ===
-2.1.138 (Claude Code)
+2.1.143 (Claude Code)
 
 === HELP ===
 Usage: claude [options] [command] [prompt]
@@ -50,7 +50,7 @@ Options:
   --permission-mode <mode>                          Permission mode to use for the session (choices: "acceptEdits", "auto", "bypassPermissions", "default", "dontAsk", "plan")
   --plugin-dir <path>                               Load a plugin from a directory or .zip for this session only (repeatable: --plugin-dir A --plugin-dir B.zip) (default: [])
   --plugin-url <url>                                Fetch a plugin .zip from a URL for this session only (repeatable: --plugin-url A --plugin-url B) (default: [])
-  -p, --print                                       Print response and exit (useful for pipes). Note: The workspace trust dialog is skipped when Claude is run in non-interactive mode (via -p, or when stdout is not a TTY, e.g. piped or redirected output). Only use this in directories you trust.
+  -p, --print                                       Print response and exit (useful for pipes). Note: The workspace trust dialog is skipped when Claude is run in non-interactive mode (via -p, or when stdout is not a TTY, e.g. piped or redirected output). Only use this in directories you trust. Settings files that fail validation are silently ignored in this mode (no error dialog is shown).
   --remote-control [name]                           Start an interactive session with Remote Control enabled (optionally named)
   --remote-control-session-name-prefix <prefix>     Prefix for auto-generated Remote Control session names (default: hostname)
   --replay-user-messages                            Re-emit user messages from stdin back on stdout for acknowledgment (only works with --input-format=stream-json and --output-format=stream-json)
@@ -67,7 +67,7 @@ Options:
   -w, --worktree [name]                             Create a new git worktree for this session (optionally specify a name)
 
 Commands:
-  agents [options]                                  Manage background and configured agents
+  agents [options]                                  Manage background agents
   auth                                              Manage authentication
   auto-mode                                         Inspect auto mode classifier configuration
   doctor                                            Check the health of your Claude Code auto-updater. Note: The workspace trust dialog is skipped and stdio servers from .mcp.json are spawned for health checks. Only use this command in directories you trust.
@@ -78,4 +78,4 @@ Commands:
   setup-token                                       Set up a long-lived authentication token (requires Claude subscription)
   ultrareview [options] [target]                    Run a cloud-hosted multi-agent code review of the current branch (or a PR number / base branch) and print the findings
   update|upgrade                                    Check for updates and install if available
-LAST_RELEASE=v2.1.138
+LAST_RELEASE=v2.1.143
