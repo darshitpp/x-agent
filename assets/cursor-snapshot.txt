@@ -1,5 +1,5 @@
 === VERSION ===
-2026.05.09-0afadcc
+2026.05.16-0338208
 
 === HELP ===
 Usage: agent [options] [command] [prompt...]
@@ -66,6 +66,8 @@ Commands:
                                disable browser opening.
   logout                       Sign out and clear stored authentication
   mcp                          Manage MCP servers
+  worker [options]             Start a private cloud worker that connects to
+                               Cursor to run agents in your environment
   status|whoami [options]      View authentication status
   models                       List available models for this account
   about [options]              Display version, system, and account information
