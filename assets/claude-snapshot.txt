@@ -1,5 +1,5 @@
 === VERSION ===
-2.1.143 (Claude Code)
+2.1.150 (Claude Code)
 
 === HELP ===
 Usage: claude [options] [command] [prompt]
@@ -78,4 +78,4 @@ Commands:
   setup-token                                       Set up a long-lived authentication token (requires Claude subscription)
   ultrareview [options] [target]                    Run a cloud-hosted multi-agent code review of the current branch (or a PR number / base branch) and print the findings
   update|upgrade                                    Check for updates and install if available
-LAST_RELEASE=v2.1.143
+LAST_RELEASE=v2.1.150
