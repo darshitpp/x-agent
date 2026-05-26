@@ -37,4 +37,4 @@ execution. Add `--ephemeral` to skip session persistence for one-off queries.
 
 | Version                                                  | Exec Subcommand | Model Flag       | Full-Auto Flag | Stdin | Notes   |
 |----------------------------------------------------------|-----------------|------------------|----------------|-------|---------|
-| (pending — populate from first snapshot or npm registry) | `codex exec`    | `-m` / `--model` | `--full-auto`  | `-`   | Current |
+| (confirm via `codex --version` and `codex --help`)         | `codex exec`    | `-m` / `--model` | `--full-auto`  | `-`   | Current |

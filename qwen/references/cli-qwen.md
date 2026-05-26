@@ -22,7 +22,7 @@
 | **Validation** | `cat "$PROMPT_FILE" \| qwen --model <model>`               |
 | **Delegation** | `cat "$PROMPT_FILE" \| qwen --model <model> --yolo`        |
 
-Note: `--yolo` enables auto-approve for delegation. Validation runs without it (read-only perspective). Prompt is piped via stdin. Qwen Code does not expose an internal `--timeout` flag; the external process kill wrapper in `query-cli.sh` enforces the 120s limit.
+Note: `--yolo` enables auto-approve for delegation. Validation runs without it (read-only perspective). Prompt is piped via stdin. Qwen Code does not expose an internal `--timeout` flag; enforce the 120-second limit per `references/shared-procedure.md` Step 6 (kill the process if it does not exit).
 
 ## 4. Version Compatibility Matrix
 

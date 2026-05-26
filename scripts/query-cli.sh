@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# query-cli.sh — Uniform wrapper for querying any CLI in print mode
+# query-cli.sh — Maintainer-only wrapper for querying any CLI in print mode.
+# Not bundled in skill installs; agents invoke CLIs per references/cli-*.md and shared-procedure.md.
 # Usage: ./query-cli.sh <cli-name> <mode> <model> <prompt-file> [timeout]
 #
 # cli-name: codex | cursor | claude | gemini | junie | qwen | opencode
