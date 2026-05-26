@@ -22,7 +22,7 @@
 | **Validation** | `cat "$PROMPT_FILE" \| opencode run -m <model> --format default 2>/dev/null`  |
 | **Delegation** | `cat "$PROMPT_FILE" \| opencode run -m <model> --format default 2>/dev/null`  |
 
-Note: Both modes use the same command because OpenCode auto-approves all actions in non-interactive `run` mode. Prompt is piped via stdin. OpenCode does not expose an internal `--timeout` flag; the external process kill wrapper in `query-cli.sh` enforces the 120s limit. Stderr is suppressed (`2>/dev/null`) to remove ANSI codes and session header from output.
+Note: Both modes use the same command because OpenCode auto-approves all actions in non-interactive `run` mode. Prompt is piped via stdin. OpenCode does not expose an internal `--timeout` flag; enforce the 120-second limit per `references/shared-procedure.md` Step 6 (kill the process if it does not exit). Stderr is suppressed (`2>/dev/null`) to remove ANSI codes and session header from output.
 
 ## 4. Version Compatibility Matrix
 

@@ -152,43 +152,46 @@ x-agent/
 │   ├── cli-qwen.md                   # Qwen Code CLI identity, invocation, version matrix
 │   └── cli-opencode.md              # OpenCode CLI identity, invocation, version matrix
 ├── scripts/
-│   ├── validate-metadata.py          # Validates SKILL.md frontmatter
-│   ├── detect-updates.sh             # Diffs CLI snapshots against stored versions
-│   ├── query-cli.sh                  # Uniform wrapper for querying any CLI
+│   ├── validate-metadata.py          # Validates SKILL.md frontmatter (authoring + CI)
+│   ├── query-cli.sh                  # Maintainer-only CLI wrapper (not used by skills at runtime)
 │   └── run-workflow.sh               # Run GitHub Actions workflows locally via act
 ├── assets/
-│   ├── codex-snapshot.txt            # Codex --help/--version output
-│   ├── cursor-snapshot.txt           # Cursor --help/--version output
-│   ├── claude-snapshot.txt           # Claude --help/--version output
-│   ├── gemini-snapshot.txt           # Gemini --help/--version output
-│   ├── junie-snapshot.txt            # Junie --help/--version output
-│   ├── qwen-snapshot.txt             # Qwen --help/--version output
-│   ├── opencode-snapshot.txt        # OpenCode --help/--version output
-│   └── result-template.md            # Output template for validation/delegation results
+│   └── result-template.md            # Output template for validation/delegation (read at runtime)
 ├── tests/
 │   ├── bats/                          # BATS shell script tests
-│   └── pytest/                        # Python tests for validate-metadata.py
+│   └── pytest/                        # Python tests (metadata, skill integrity)
 ├── .github/workflows/
-│   ├── sync-cli-updates.yml          # Weekly CLI update detection + PR creation
-│   └── run-tests.yml                 # CI test suite (BATS + pytest, ubuntu + macOS)
+│   ├── run-tests.yml                 # CI test suite (BATS + pytest, ubuntu + macOS)
+│   └── lint-workflows.yml            # actionlint on workflow YAML
+├── docs/superpowers/                 # Design specs and implementation history
 ├── README.md
 ├── LICENSE
 └── .gitignore
 ```
 
-## GitHub Actions Update Workflow
+## CI
 
-The included workflow (`.github/workflows/sync-cli-updates.yml`) runs weekly on Monday at 06:00 UTC:
+GitHub Actions runs on every push and pull request to `main`:
 
-1. **Release watch** — Checks GitHub Releases API for each CLI's repo
-2. **Snapshot diff** — Installs CLIs (best-effort) and runs `--version`/`--help` to detect changes
-3. **PR creation** — Opens a PR for each CLI with updated snapshots, labeled `cli-update`
+- **`run-tests.yml`** — BATS tests for `query-cli.sh` (mocked CLIs) and pytest for metadata validation, canonical/per-skill file drift, and self-contained installs (ubuntu + macOS).
+- **`lint-workflows.yml`** — [actionlint](https://github.com/rhysd/actionlint) on workflow YAML when `.github/workflows/` changes.
 
-Trigger manually anytime from **Actions > Sync CLI Updates > Run workflow**.
+Run workflows locally with [act](https://github.com/nektos/act): `./scripts/run-workflow.sh run-tests.yml`
+
+## Maintaining CLI references
+
+When a target CLI changes flags or defaults, update manually:
+
+1. Run `<cli> --version` and `<cli> --help` (and `--list-models` if available).
+2. Edit `references/cli-<name>.md` (identity, invocation template, version matrix).
+3. Copy into the skill bundle: `cp references/cli-<name>.md <name>/references/`
+4. Run the test suite.
+
+Skills do not use repo-root `scripts/` at runtime — each install is self-contained under `<cli>/` with its own `references/` and `assets/result-template.md`.
 
 ## Testing
 
-The test suite covers all four scripts with no external CLI dependencies — everything is mocked.
+The test suite has no external CLI dependencies — shell and Python tests use mocks.
 
 **Prerequisites:**
 
@@ -215,12 +218,15 @@ Tests also run automatically on every PR via GitHub Actions (ubuntu + macOS).
 1. Create `<cli-name>/SKILL.md` following the existing pattern (copy any existing one)
 2. Create `references/cli-<cli-name>.md` with the four required sections (Identity, Model Selection, Invocation
    Template, Version Matrix)
-3. Add the CLI to `scripts/detect-updates.sh` arrays (`CLIS`, `CLI_COMMANDS`, `LIST_MODELS_SUPPORTED`)
-4. Add the CLI's invocation case to `scripts/query-cli.sh`
-5. Add the CLI to the GitHub Actions workflow matrix in `sync-cli-updates.yml`
-6. Run `scripts/detect-updates.sh <cli-name>` to generate the initial snapshot
-7. Validate frontmatter: `python3 scripts/validate-metadata.py --name <name> --description "<desc>"`
-8. Add tests for the new CLI in `tests/bats/query_cli.bats` and run the test suite
+3. Copy shared files into the skill bundle:
+   ```bash
+   mkdir -p <cli-name>/references <cli-name>/assets
+   cp references/shared-procedure.md references/cli-<cli-name>.md <cli-name>/references/
+   cp assets/result-template.md <cli-name>/assets/
+   ```
+4. Validate frontmatter: `python3 scripts/validate-metadata.py --name <name> --description "<desc>"`
+5. Optionally add the CLI to `scripts/query-cli.sh` for maintainer testing and extend `tests/bats/query_cli.bats`
+6. Run the full test suite (`bats` + `pytest`)
 
 ## Usage with Different Agents
 

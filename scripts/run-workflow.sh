@@ -8,7 +8,7 @@
 # Examples:
 #   ./scripts/run-workflow.sh lint-workflows.yml          # Run entire workflow
 #   ./scripts/run-workflow.sh lint-workflows.yml --job actionlint  # Run specific job
-#   ./scripts/run-workflow.sh sync-cli-updates.yml -e      # List events only (dry-run)
+#   ./scripts/run-workflow.sh run-tests.yml -e             # List events only (dry-run)
 
 set -euo pipefail
 
