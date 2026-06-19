@@ -41,7 +41,7 @@ adds a round-trip to another CLI, so use it when the extra signal is worth the t
 | Gemini CLI     | `gemini`      | `gemini-2.5-pro`     | Google models, auto-routing                              |
 | Junie          | `junie`       | Junie default        | LLM-agnostic, BYOK support                               |
 | Qwen Code      | `qwen`        | Qwen default         | Qwen model family, `--yolo` for auto-approve             |
-| OpenCode       | `opencode`    | OpenCode default     | Multi-provider, uses `run` subcommand                    |
+| OpenCode       | `opencode`    | OpenCode default     | Multi-provider, uses `run` subcommand with auto-approval |
 
 ## How to use it
 
