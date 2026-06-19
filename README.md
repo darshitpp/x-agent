@@ -3,8 +3,8 @@
 Let your AI coding agent talk to other AI coding agents.
 
 x-agent is a set of [agentskills.io](https://agentskills.io) skills that enable any AI CLI tool — Codex, Cursor, Claude
-Code, Gemini CLI, Junie, Qwen Code, OpenCode — to delegate tasks to or get second opinions from the others. Install it once, and your agent
-gains the ability to call any of the other six.
+Code, Gemini CLI, Junie, Qwen Code, OpenCode, Pi — to delegate tasks to or get second opinions from the others. Install it once, and your agent
+gains the ability to call any of the other seven.
 
 ## Why
 
@@ -42,6 +42,7 @@ adds a round-trip to another CLI, so use it when the extra signal is worth the t
 | Junie          | `junie`       | Junie default        | LLM-agnostic, BYOK support                               |
 | Qwen Code      | `qwen`        | Qwen default         | Qwen model family, `--yolo` for auto-approve             |
 | OpenCode       | `opencode`    | OpenCode default     | Multi-provider, uses `run` subcommand with auto-approval |
+| Pi             | `pi`          | `sonnet`             | Multi-provider, minimal terminal coding harness          |
 
 ## How to use it
 
@@ -117,7 +118,7 @@ git clone https://github.com/darshitpp/x-agent.git .claude/skills/x-agent
 ```
 
 After installation, the skills appear automatically in Claude Code's available skills list. Each CLI has its own skill (
-`codex`, `cursor`, `claude`, `gemini`, `junie`, `qwen`, `opencode`) that triggers based on context.
+`codex`, `cursor`, `claude`, `gemini`, `junie`, `qwen`, `opencode`, `pi`) that triggers based on context.
 
 To update later:
 
@@ -142,6 +143,7 @@ x-agent/
 ├── junie/SKILL.md                    # Thin entry point (~27 lines)
 ├── qwen/SKILL.md                     # Thin entry point (~27 lines)
 ├── opencode/SKILL.md                # Thin entry point (~27 lines)
+├── pi/SKILL.md                      # Thin entry point (~20 lines)
 ├── references/
 │   ├── shared-procedure.md           # Core procedure (~105 lines)
 │   ├── cli-codex.md                  # Codex CLI identity, invocation, version matrix
@@ -150,7 +152,8 @@ x-agent/
 │   ├── cli-gemini.md                 # Gemini CLI identity, invocation, version matrix
 │   ├── cli-junie.md                  # Junie CLI identity, invocation, version matrix
 │   ├── cli-qwen.md                   # Qwen Code CLI identity, invocation, version matrix
-│   └── cli-opencode.md              # OpenCode CLI identity, invocation, version matrix
+│   ├── cli-opencode.md              # OpenCode CLI identity, invocation, version matrix
+│   └── cli-pi.md                    # Pi CLI identity, invocation, version matrix
 ├── scripts/
 │   ├── validate-metadata.py          # Validates SKILL.md frontmatter (authoring + CI)
 │   ├── query-cli.sh                  # Maintainer-only CLI wrapper (not used by skills at runtime)
@@ -241,7 +244,7 @@ a `SKILL.md` entry point.
 | Project                 | `.claude/skills/x-agent/`   |
 
 **Invoke:** Ask naturally ("get a second opinion from Cursor") or explicitly with `/codex`, `/cursor`, `/claude`,
-`/gemini`, `/junie`, `/qwen`, `/opencode`. Claude loads the skill automatically when relevant.
+`/gemini`, `/junie`, `/qwen`, `/opencode`, `/pi`. Claude loads the skill automatically when relevant.
 
 [Claude Code skills docs](https://code.claude.com/docs/en/skills)
 
