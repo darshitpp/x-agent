@@ -5,7 +5,7 @@ import pytest
 
 from conftest import REPO_ROOT
 
-SKILL_DIRS = ["codex", "cursor", "claude", "gemini", "junie", "qwen", "opencode"]
+SKILL_DIRS = ["codex", "cursor", "claude", "gemini", "junie", "qwen", "opencode", "pi"]
 
 
 # ---------------------------------------------------------------------------
