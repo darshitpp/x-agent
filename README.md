@@ -143,7 +143,7 @@ x-agent/
 ├── junie/SKILL.md                    # Thin entry point (~27 lines)
 ├── qwen/SKILL.md                     # Thin entry point (~27 lines)
 ├── opencode/SKILL.md                # Thin entry point (~27 lines)
-├── pi/SKILL.md                      # Thin entry point (~20 lines)
+├── pi/SKILL.md                      # Thin entry point (~27 lines)
 ├── references/
 │   ├── shared-procedure.md           # Core procedure (~105 lines)
 │   ├── cli-codex.md                  # Codex CLI identity, invocation, version matrix
