@@ -7,7 +7,6 @@
 - **Output format flag:** `--output-format text|json|stream-json`
 - **Trust/auto-approve flag:** `--trust`, `--force` / `--yolo`
 - **List models command:** `agent --list-models 2>&1`
-- **Self-call detection:** Check for `CURSOR_SESSION` or `CURSOR_TRACE_ID` environment variable
 
 ## 2. Model Selection Heuristic
 

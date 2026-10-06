@@ -7,7 +7,6 @@
 - **Output format flag:** `--format default|json` (`default` outputs formatted text to stdout; ANSI/session header goes to stderr, `json` outputs raw JSON events)
 - **Model flag:** `-m` / `--model` (format: `provider/model`, e.g. `anthropic/claude-sonnet-4`, `openai/gpt-4o`)
 - **List models command:** `opencode models` (requires configured provider credentials)
-- **Self-call detection:** Check for `OPENCODE` environment variable (set to `1` inside OpenCode sessions), or `opencode` in process ancestry
 
 ## 2. Model Selection Heuristic
 

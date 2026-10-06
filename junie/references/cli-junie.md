@@ -7,7 +7,6 @@
 - **Output format flag:** `--output-format text|json`
 - **Trust/auto-approve flag:** None (non-interactive mode auto-approves)
 - **List models command:** Not directly available. Model is specified with `--model`.
-- **Self-call detection:** Check for `JUNIE_SESSION` or JetBrains-specific environment markers
 
 ## 2. Model Selection Heuristic
 

@@ -7,7 +7,6 @@
 - **Output format flag:** `--output-format text|json|stream-json`
 - **Trust/auto-approve flag:** `--dangerously-skip-permissions`
 - **List models command:** `claude --list-models 2>&1` (if available) or infer from `claude --help`
-- **Self-call detection:** Check for `CLAUDE_CODE` environment variable or `claude` in process ancestry
 
 ## 2. Model Selection Heuristic
 

@@ -12,7 +12,6 @@
 - **Model flag:** `-m` / `--model`
 - **List models command:** Not available — no `--list-models` flag. Available models must be maintained in the version
   matrix.
-- **Self-call detection:** Check for `codex` in process ancestry (no dedicated env var)
 - **Sandbox modes:** `--sandbox read-only|workspace-write|danger-full-access` (`-s`)
 - **Approval modes:** `--ask-for-approval untrusted|on-request|never` (`-a`)
 

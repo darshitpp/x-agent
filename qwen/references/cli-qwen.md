@@ -7,7 +7,6 @@
 - **Output format flag:** `--output-format text|json` (confirm via `qwen --help`)
 - **Model flag:** `--model`
 - **List models command:** `qwen --list-models` (confirm availability; assume unavailable initially)
-- **Self-call detection:** Check for `QWEN_SESSION` or `QWEN_CODE` environment variable, or `qwen` in process ancestry
 
 ## 2. Model Selection Heuristic
 

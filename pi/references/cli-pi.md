@@ -11,7 +11,6 @@
 - **Trust project-local files:** `-a` / `--approve` (load AGENTS.md, CLAUDE.md, themes, prompts from the project for this run; required for skill to run on real projects)
 - **List models command:** `pi --list-models [search]` (fuzzy search optional)
 - **Version:** `pi --version` (returns e.g. `0.80.3`); echo once before invoking for traceability
-- **Self-call detection:** Check for `PI_AGENT` environment variable or `pi` in process ancestry
 
 ## 2. Model Selection Heuristic
 

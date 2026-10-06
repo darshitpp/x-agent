@@ -7,7 +7,6 @@
 - **Output format flag:** `-o` / `--output-format text|json|stream-json`
 - **Trust/auto-approve flag:** `-y` / `--yolo`
 - **List models command:** Not directly available via CLI flag. Model is specified with `-m`.
-- **Self-call detection:** Check for `GEMINI_CLI` environment variable
 
 ## 2. Model Selection Heuristic
 
