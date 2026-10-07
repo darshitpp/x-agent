@@ -5,7 +5,8 @@
 - **Command:** `agent`
 - **Non-interactive flag:** `-p` / `--print`
 - **Output format flag:** `--output-format text|json|stream-json`
-- **Trust/auto-approve flag:** `--trust`, `--force` / `--yolo`
+- **Trust/auto-approve flag:** `--trust` (trust workspace), `--force` / `--yolo` (allow commands)
+- **Read-only mode:** `--mode ask` (Q&A, no edits) or `--mode plan`; plain `-p` has access to all tools incl. write and shell
 - **List models command:** `agent --list-models 2>&1`
 
 ## 2. Model Selection Heuristic
@@ -21,13 +22,13 @@ Safe prompt transport — write prompt to temp file, pipe via stdin:
 
 | Mode           | Command                                                  |
 |----------------|----------------------------------------------------------|
-| **Validation** | `cat "$PROMPT_FILE" \| agent -p --model <model>`         |
+| **Validation** | `cat "$PROMPT_FILE" \| agent -p --model <model> --mode ask` |
 | **Delegation** | `cat "$PROMPT_FILE" \| agent -p --model <model> --trust` |
 
-Note: `--trust` enables auto-approve for delegation. Validation runs without it (read-only perspective).
+Note: `--trust` enables auto-approve for delegation. Validation uses `--mode ask` so the run stays read-only.
 
 ## 4. Version Compatibility Matrix
 
 | Version   | List Models     | Print Flag       | Model Flag | Trust Flag                       | Notes   |
 |-----------|-----------------|------------------|------------|----------------------------------|---------|
-| 2026.03.x | `--list-models` | `-p` / `--print` | `--model`  | `--trust` / `--force` / `--yolo` | Current |
+| 2026.08.x | `--list-models` | `-p` / `--print` | `--model`  | `--trust` / `--force` / `--yolo` | Current; `--mode ask\|plan` is read-only |

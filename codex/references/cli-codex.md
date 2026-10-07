@@ -5,15 +5,16 @@
 - **Command:** `codex`
 - **Non-interactive subcommand:** `codex exec` (alias: `codex e`)
 - **Stdin prompt:** Pass `-` as the prompt argument to read from stdin
-- **Output format:** `--json` for newline-delimited JSON events, or `--output-last-message <path>` to write final
+- **Output format:** `--json` for newline-delimited JSON events, or `-o` / `--output-last-message <path>` to write final
   response to file
-- **Trust/auto-approve flag:** `--full-auto` (sets approvals to `on-request` + sandbox to `workspace-write`), or
+- **Outside a git repo:** add `--skip-git-repo-check`
+- **Trust/auto-approve flag:** `--sandbox workspace-write` (`--full-auto` is a deprecated alias that prints a warning), or
   `--dangerously-bypass-approvals-and-sandbox` / `--yolo` for full bypass
 - **Model flag:** `-m` / `--model`
 - **List models command:** Not available — no `--list-models` flag. Available models must be maintained in the version
   matrix.
 - **Sandbox modes:** `--sandbox read-only|workspace-write|danger-full-access` (`-s`)
-- **Approval modes:** `--ask-for-approval untrusted|on-request|never` (`-a`)
+- **Approval modes:** `--ask-for-approval on-request|never` (`-a`)
 
 ## 2. Model Selection Heuristic
 
@@ -27,13 +28,12 @@
 | Mode           | Command                                                                 |
 |----------------|-------------------------------------------------------------------------|
 | **Validation** | `cat "$PROMPT_FILE" \| codex exec -m <model> --ephemeral -`             |
-| **Delegation** | `cat "$PROMPT_FILE" \| codex exec -m <model> --full-auto --ephemeral -` |
+| **Delegation** | `cat "$PROMPT_FILE" \| codex exec -m <model> --sandbox workspace-write --ephemeral -` |
 
-Note: `codex exec` is the non-interactive subcommand. `-` reads prompt from stdin. `--full-auto` enables autonomous
-execution. Add `--ephemeral` to skip session persistence for one-off queries.
+Note: `codex exec` is the non-interactive subcommand. `-` reads prompt from stdin. `--sandbox workspace-write` allows file edits inside the workspace. Add `--ephemeral` to skip session persistence for one-off queries.
 
 ## 4. Version Compatibility Matrix
 
-| Version                                                  | Exec Subcommand | Model Flag       | Full-Auto Flag | Stdin | Notes   |
-|----------------------------------------------------------|-----------------|------------------|----------------|-------|---------|
-| (confirm via `codex --version` and `codex --help`)         | `codex exec`    | `-m` / `--model` | `--full-auto`  | `-`   | Current |
+| Version                                            | Exec Subcommand | Model Flag       | Write Access                    | Stdin | Notes                          |
+|----------------------------------------------------|-----------------|------------------|---------------------------------|-------|--------------------------------|
+| (confirm via `codex --version` and `codex --help`) | `codex exec`    | `-m` / `--model` | `--sandbox workspace-write`     | `-`   | `--full-auto` deprecated (warns) |

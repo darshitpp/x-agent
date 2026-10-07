@@ -42,30 +42,30 @@ setup() {
 # Codex invocation
 # ---------------------------------------------------------------------------
 
-@test "codex validation passes --ephemeral without --full-auto" {
+@test "codex validation passes --ephemeral without write sandbox" {
   create_mock_cli codex
   run "$QUERY_CLI" codex validation test-model "$PROMPT" 10
   assert_success
   assert_output --partial "exec -m test-model --ephemeral -"
-  refute_output --partial "--full-auto"
+  refute_output --partial "--sandbox"
 }
 
-@test "codex delegation passes --full-auto --ephemeral" {
+@test "codex delegation passes --sandbox workspace-write --ephemeral" {
   create_mock_cli codex
   run "$QUERY_CLI" codex delegation test-model "$PROMPT" 10
   assert_success
-  assert_output --partial "exec -m test-model --full-auto --ephemeral -"
+  assert_output --partial "exec -m test-model --sandbox workspace-write --ephemeral -"
 }
 
 # ---------------------------------------------------------------------------
 # Cursor invocation (binary is "agent")
 # ---------------------------------------------------------------------------
 
-@test "cursor validation passes -p --model without --trust" {
+@test "cursor validation passes -p --model --mode ask without --trust" {
   create_mock_cli agent
   run "$QUERY_CLI" cursor validation test-model "$PROMPT" 10
   assert_success
-  assert_output --partial "-p --model test-model"
+  assert_output --partial "-p --model test-model --mode ask"
   refute_output --partial "--trust"
 }
 
@@ -98,11 +98,11 @@ setup() {
 # Gemini invocation
 # ---------------------------------------------------------------------------
 
-@test "gemini validation passes -m -p -o without -y" {
+@test "gemini validation passes -m -p -o --skip-trust without -y" {
   create_mock_cli gemini
   run "$QUERY_CLI" gemini validation test-model "$PROMPT" 10
   assert_success
-  assert_output --partial "-m test-model -p - -o text"
+  assert_output --partial "-m test-model -p - -o text --skip-trust"
   refute_output --partial " -y "
 }
 
@@ -110,7 +110,7 @@ setup() {
   create_mock_cli gemini
   run "$QUERY_CLI" gemini delegation test-model "$PROMPT" 10
   assert_success
-  assert_output --partial "-m test-model -p - -y -o text"
+  assert_output --partial "-m test-model -p - -y -o text --skip-trust"
 }
 
 # ---------------------------------------------------------------------------
@@ -121,21 +121,21 @@ setup() {
   create_mock_cli junie
   run "$QUERY_CLI" junie validation test-model "$PROMPT" 10
   assert_success
-  assert_output --partial "--model test-model --output-format text --timeout 10000"
+  assert_output --partial "--model test-model --output-format text --timeout 10000 --skip-update-check"
 }
 
 @test "junie delegation passes same flags as validation" {
   create_mock_cli junie
   run "$QUERY_CLI" junie delegation test-model "$PROMPT" 10
   assert_success
-  assert_output --partial "--model test-model --output-format text --timeout 10000"
+  assert_output --partial "--model test-model --output-format text --timeout 10000 --skip-update-check"
 }
 
 # ---------------------------------------------------------------------------
 # Qwen invocation
 # ---------------------------------------------------------------------------
 
-@test "qwen validation passes --model without --yolo" {
+@test "qwen validation passes -p --model without --yolo" {
   create_mock_cli qwen
   run "$QUERY_CLI" qwen validation test-model "$PROMPT" 10
   assert_success
@@ -154,18 +154,19 @@ setup() {
 # OpenCode invocation (same for both modes)
 # ---------------------------------------------------------------------------
 
-@test "opencode validation passes run -m --format default" {
+@test "opencode validation passes run -m --format default without --auto" {
   create_mock_cli opencode
   run "$QUERY_CLI" opencode validation test-model "$PROMPT" 10
   assert_success
   assert_output --partial "run -m test-model --format default"
+  refute_output --partial "--auto"
 }
 
-@test "opencode delegation passes same flags as validation" {
+@test "opencode delegation passes --auto" {
   create_mock_cli opencode
   run "$QUERY_CLI" opencode delegation test-model "$PROMPT" 10
   assert_success
-  assert_output --partial "run -m test-model --format default"
+  assert_output --partial "run -m test-model --format default --auto"
 }
 
 # ---------------------------------------------------------------------------

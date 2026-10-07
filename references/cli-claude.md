@@ -6,12 +6,13 @@
 - **Non-interactive flag:** `-p` / `--print`
 - **Output format flag:** `--output-format text|json|stream-json`
 - **Trust/auto-approve flag:** `--dangerously-skip-permissions`
-- **List models command:** `claude --list-models 2>&1` (if available) or infer from `claude --help`
+- **List models command:** None (`--list-models` is not a flag). Use aliases or full model names; see `claude --help`
+- **Related flags:** `--permission-mode acceptEdits|auto|bypassPermissions|manual|dontAsk|plan`, `--no-session-persistence`, `--max-budget-usd`
 
 ## 2. Model Selection Heuristic
 
-- **Default model (fallback):** `sonnet` (alias for claude-sonnet-4-6)
-- **Aliases:** `opus` → claude-opus-4-6, `sonnet` → claude-sonnet-4-6, `haiku` → claude-haiku-4-5
+- **Default model (fallback):** `sonnet` (alias for the latest Sonnet)
+- **Aliases:** `opus`, `sonnet`, `haiku`, `fable` — each resolves to the latest model of that family
 - **Quirks:** Model can also be set via `ANTHROPIC_MODEL` env var. Supports `--fallback-model` for overload scenarios.
 
 ## 3. Invocation Template
@@ -27,4 +28,4 @@ Note: Claude Code validation and delegation use the same invocation — no separ
 
 | Version | Print Flag       | Model Flag | Output Format                             | Notes   |
 |---------|------------------|------------|-------------------------------------------|---------|
-| 2.1.x   | `-p` / `--print` | `--model`  | `--output-format text\|json\|stream-json` | Current |
+| 2.1.x (2.1.292 verified) | `-p` / `--print` | `--model`  | `--output-format text\|json\|stream-json` | Current |

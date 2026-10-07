@@ -60,7 +60,7 @@ export MODEL PROMPT_FILE TIMEOUT
 case "$CLI_NAME" in
   codex)
     if [ "$MODE" = "delegation" ]; then
-      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | codex exec -m "$MODEL" --full-auto --ephemeral -'
+      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | codex exec -m "$MODEL" --sandbox workspace-write --ephemeral -'
     else
       run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | codex exec -m "$MODEL" --ephemeral -'
     fi
@@ -69,7 +69,7 @@ case "$CLI_NAME" in
     if [ "$MODE" = "delegation" ]; then
       run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | agent -p --model "$MODEL" --trust'
     else
-      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | agent -p --model "$MODEL"'
+      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | agent -p --model "$MODEL" --mode ask'
     fi
     ;;
   claude)
@@ -77,27 +77,31 @@ case "$CLI_NAME" in
     ;;
   gemini)
     if [ "$MODE" = "delegation" ]; then
-      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | gemini -m "$MODEL" -p - -y -o text'
+      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | gemini -m "$MODEL" -p - -y -o text --skip-trust'
     else
-      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | gemini -m "$MODEL" -p - -o text'
+      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | gemini -m "$MODEL" -p - -o text --skip-trust'
     fi
     ;;
   junie)
     TIMEOUT_MS=$((TIMEOUT * 1000))
     export TIMEOUT_MS
-    run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | junie --model "$MODEL" --output-format text --timeout "$TIMEOUT_MS"'
+    run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | junie --model "$MODEL" --output-format text --timeout "$TIMEOUT_MS" --skip-update-check'
     ;;
   qwen)
     # Qwen Code does not expose an internal --timeout flag; relies on external process kill.
     if [ "$MODE" = "delegation" ]; then
-      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | qwen --model "$MODEL" --yolo'
+      run_with_timeout "$TIMEOUT" sh -c 'qwen -p "$(cat "$PROMPT_FILE")" --model "$MODEL" --yolo'
     else
-      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | qwen --model "$MODEL"'
+      run_with_timeout "$TIMEOUT" sh -c 'qwen -p "$(cat "$PROMPT_FILE")" --model "$MODEL"'
     fi
     ;;
   opencode)
-    # OpenCode auto-approves in non-interactive run mode; no separate delegation flag needed.
-    run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | opencode run -m "$MODEL" --format default 2>/dev/null'
+    # opencode run denies un-allowed permissions unless --auto is set; only delegation needs it.
+    if [ "$MODE" = "delegation" ]; then
+      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | opencode run -m "$MODEL" --format default --auto 2>/dev/null'
+    else
+      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | opencode run -m "$MODEL" --format default 2>/dev/null'
+    fi
     ;;
   agy)
     if [ "$MODE" = "delegation" ]; then
