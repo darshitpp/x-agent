@@ -4,7 +4,7 @@ Let your AI coding agent talk to other AI coding agents.
 
 x-agent is a set of [agentskills.io](https://agentskills.io) skills that enable any AI CLI tool — Codex, Cursor, Claude
 Code, Gemini CLI, Junie, Qwen Code, OpenCode, Pi, Antigravity (agy), jcode — to delegate tasks to or get second opinions from the others. Install it once, and your agent
-gains the ability to call any of the other seven.
+gains the ability to call any of the other nine.
 
 ## Why
 
