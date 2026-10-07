@@ -172,7 +172,6 @@ x-agent/
 ├── .github/workflows/
 │   ├── run-tests.yml                 # CI test suite (BATS + pytest, ubuntu + macOS)
 │   └── lint-workflows.yml            # actionlint on workflow YAML
-├── docs/superpowers/                 # Design specs and implementation history
 ├── README.md
 ├── LICENSE
 └── .gitignore
