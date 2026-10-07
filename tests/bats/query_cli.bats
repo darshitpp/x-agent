@@ -67,13 +67,14 @@ setup() {
   assert_success
   assert_output --partial "-p --model test-model --mode ask"
   refute_output --partial "--trust"
+  refute_output --partial "--force"
 }
 
-@test "cursor delegation passes --trust" {
+@test "cursor delegation passes --trust --force" {
   create_mock_cli agent
   run "$QUERY_CLI" cursor delegation test-model "$PROMPT" 10
   assert_success
-  assert_output --partial "-p --model test-model --trust"
+  assert_output --partial "-p --model test-model --trust --force"
 }
 
 # ---------------------------------------------------------------------------

@@ -5,7 +5,8 @@
 - **Command:** `agent`
 - **Non-interactive flag:** `-p` / `--print`
 - **Output format flag:** `--output-format text|json|stream-json`
-- **Trust/auto-approve flag:** `--trust` (trust workspace), `--force` / `--yolo` (allow commands)
+- **Trust/auto-approve flag:** `--trust` (trust workspace, headless only), `--force` / `--yolo` (apply file changes and run commands without confirmation; without it print mode only proposes changes)
+- **Other:** `--auto-review` (server classifier auto-runs safe tool calls, prompts for the rest)
 - **Read-only mode:** `--mode ask` (Q&A, no edits) or `--mode plan`; plain `-p` has access to all tools incl. write and shell
 - **List models command:** `agent --list-models 2>&1`
 
@@ -23,9 +24,9 @@ Safe prompt transport — write prompt to temp file, pipe via stdin:
 | Mode           | Command                                                  |
 |----------------|----------------------------------------------------------|
 | **Validation** | `cat "$PROMPT_FILE" \| agent -p --model <model> --mode ask` |
-| **Delegation** | `cat "$PROMPT_FILE" \| agent -p --model <model> --trust` |
+| **Delegation** | `cat "$PROMPT_FILE" \| agent -p --model <model> --trust --force` |
 
-Note: `--trust` enables auto-approve for delegation. Validation uses `--mode ask` so the run stays read-only.
+Note: in print mode, file changes are only proposed unless `--force` / `--yolo` is set, so Delegation passes `--trust --force`. Validation uses `--mode ask` so the run stays read-only.
 
 ## 4. Version Compatibility Matrix
 

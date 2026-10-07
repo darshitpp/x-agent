@@ -67,7 +67,7 @@ case "$CLI_NAME" in
     ;;
   cursor)
     if [ "$MODE" = "delegation" ]; then
-      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | agent -p --model "$MODEL" --trust'
+      run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | agent -p --model "$MODEL" --trust --force'
     else
       run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | agent -p --model "$MODEL" --mode ask'
     fi
