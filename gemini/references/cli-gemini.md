@@ -30,4 +30,4 @@ Note: `-p` is appended to input on stdin, so `-p -` plus piped stdin carries the
 
 | Version | Prompt Flag       | Model Flag       | Output Format            | Yolo Flag       | Notes   |
 |---------|-------------------|------------------|--------------------------|-----------------|---------|
-| 0.46.x  | `-p` / `--prompt` | `-m` / `--model` | `-o` / `--output-format` | `-y` / `--yolo` | Current |
+| 0.63.x  | `-p` / `--prompt` | `-m` / `--model` | `-o` / `--output-format` | `-y` / `--yolo` | Current |

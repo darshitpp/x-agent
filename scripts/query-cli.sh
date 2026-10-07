@@ -90,9 +90,9 @@ case "$CLI_NAME" in
   qwen)
     # Qwen Code does not expose an internal --timeout flag; relies on external process kill.
     if [ "$MODE" = "delegation" ]; then
-      run_with_timeout "$TIMEOUT" sh -c 'qwen -p "$(cat "$PROMPT_FILE")" --model "$MODEL" --yolo'
+      run_with_timeout "$TIMEOUT" sh -c 'qwen "$(cat "$PROMPT_FILE")" --model "$MODEL" --yolo'
     else
-      run_with_timeout "$TIMEOUT" sh -c 'qwen -p "$(cat "$PROMPT_FILE")" --model "$MODEL"'
+      run_with_timeout "$TIMEOUT" sh -c 'qwen "$(cat "$PROMPT_FILE")" --model "$MODEL"'
     fi
     ;;
   opencode)

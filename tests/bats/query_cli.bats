@@ -135,7 +135,7 @@ setup() {
 # Qwen invocation
 # ---------------------------------------------------------------------------
 
-@test "qwen validation passes -p --model without --yolo" {
+@test "qwen validation passes positional prompt --model without --yolo" {
   create_mock_cli qwen
   run "$QUERY_CLI" qwen validation test-model "$PROMPT" 10
   assert_success

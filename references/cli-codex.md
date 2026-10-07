@@ -8,13 +8,12 @@
 - **Output format:** `--json` for newline-delimited JSON events, or `-o` / `--output-last-message <path>` to write final
   response to file
 - **Outside a git repo:** add `--skip-git-repo-check`
-- **Trust/auto-approve flag:** `--sandbox workspace-write` (`--full-auto` is a deprecated alias that prints a warning), or
-  `--dangerously-bypass-approvals-and-sandbox` / `--yolo` for full bypass
+- **Trust/auto-approve flag:** `--sandbox workspace-write` (`--full-auto` is deprecated and absent from `codex exec` as of 0.160), or
+  `--dangerously-bypass-approvals-and-sandbox` for full bypass; `--approve-for-me` routes approvals to automatic review
 - **Model flag:** `-m` / `--model`
 - **List models command:** Not available — no `--list-models` flag. Available models must be maintained in the version
   matrix.
 - **Sandbox modes:** `--sandbox read-only|workspace-write|danger-full-access` (`-s`)
-- **Approval modes:** `--ask-for-approval on-request|never` (`-a`)
 
 ## 2. Model Selection Heuristic
 
@@ -36,4 +35,4 @@ Note: `codex exec` is the non-interactive subcommand. `-` reads prompt from stdi
 
 | Version                                            | Exec Subcommand | Model Flag       | Write Access                    | Stdin | Notes                          |
 |----------------------------------------------------|-----------------|------------------|---------------------------------|-------|--------------------------------|
-| (confirm via `codex --version` and `codex --help`) | `codex exec`    | `-m` / `--model` | `--sandbox workspace-write`     | `-`   | `--full-auto` deprecated (warns) |
+| 0.160.x (verified via `codex exec --help`)          | `codex exec`    | `-m` / `--model` | `--sandbox workspace-write`     | `-`   | `--full-auto` removed from `exec`  |

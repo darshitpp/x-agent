@@ -30,4 +30,4 @@ Note: Both modes use `--format default` for human-readable output (`--format jso
 |---------|--------------------|----------------|--------------------------|--------------------------------|
 | 1.3.10  | `-m` / `--model`   | `run`          | `--format default\|json` | Verified; stdin piping works   |
 | 1.17.8  | `-m` / `--model`   | `run`          | `--format default\|json` | Earlier; run auto-approved tool use |
-| 1.18.x  | `-m` / `--model`   | `run`          | `--format default\|json` | Current (1.18.34 verified); adds `--auto` |
+| 1.18.x  | `-m` / `--model`   | `run`          | `--format default\|json` | Current (1.18.34 verified; 1.18.35 latest); adds `--auto` |
