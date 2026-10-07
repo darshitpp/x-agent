@@ -188,3 +188,33 @@ setup() {
   assert_success
   assert_output --partial "test prompt content"
 }
+
+# ---------------------------------------------------------------------------
+# agy invocation
+# ---------------------------------------------------------------------------
+
+@test "agy validation passes -p --model without skip-permissions" {
+  create_mock_cli agy
+  run "$QUERY_CLI" agy validation test-model "$PROMPT" 10
+  assert_success
+  assert_output --partial "--model test-model --output-format text"
+  refute_output --partial "--dangerously-skip-permissions"
+}
+
+@test "agy delegation passes --dangerously-skip-permissions" {
+  create_mock_cli agy
+  run "$QUERY_CLI" agy delegation test-model "$PROMPT" 10
+  assert_success
+  assert_output --partial "--dangerously-skip-permissions"
+}
+
+# ---------------------------------------------------------------------------
+# jcode invocation (same for both modes)
+# ---------------------------------------------------------------------------
+
+@test "jcode passes --model and run subcommand" {
+  create_mock_cli jcode
+  run "$QUERY_CLI" jcode delegation test-model "$PROMPT" 10
+  assert_success
+  assert_output --partial "--model test-model run"
+}

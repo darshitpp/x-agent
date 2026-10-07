@@ -3,7 +3,7 @@
 # Not bundled in skill installs; agents invoke CLIs per references/cli-*.md and shared-procedure.md.
 # Usage: ./query-cli.sh <cli-name> <mode> <model> <prompt-file> [timeout]
 #
-# cli-name: codex | cursor | claude | gemini | junie | qwen | opencode
+# cli-name: codex | cursor | claude | gemini | junie | qwen | opencode | pi | agy | jcode
 # mode:     validation | delegation
 # model:    model ID to use
 # prompt-file: path to file containing the prompt
@@ -99,8 +99,18 @@ case "$CLI_NAME" in
     # OpenCode auto-approves in non-interactive run mode; no separate delegation flag needed.
     run_with_timeout "$TIMEOUT" sh -c 'cat "$PROMPT_FILE" | opencode run -m "$MODEL" --format default 2>/dev/null'
     ;;
+  agy)
+    if [ "$MODE" = "delegation" ]; then
+      run_with_timeout "$TIMEOUT" sh -c 'agy -p "$(cat "$PROMPT_FILE")" --model "$MODEL" --output-format text --dangerously-skip-permissions'
+    else
+      run_with_timeout "$TIMEOUT" sh -c 'agy -p "$(cat "$PROMPT_FILE")" --model "$MODEL" --output-format text'
+    fi
+    ;;
+  jcode)
+    run_with_timeout "$TIMEOUT" sh -c 'jcode --model "$MODEL" run "$(cat "$PROMPT_FILE")"'
+    ;;
   *)
-    echo "Error: Unknown CLI '$CLI_NAME'. Supported: codex, cursor, claude, gemini, junie, qwen, opencode" >&2
+    echo "Error: Unknown CLI '$CLI_NAME'. Supported: codex, cursor, claude, gemini, junie, qwen, opencode, agy, jcode" >&2
     exit 1
     ;;
 esac
