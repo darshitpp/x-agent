@@ -38,7 +38,7 @@ adds a round-trip to another CLI, so use it when the extra signal is worth the t
 | OpenAI Codex   | `codex`       | `o4-mini`            | OpenAI models only                                       |
 | Cursor Agent   | `agent`       | `composer-2-fast`    | Multi-provider (OpenAI, Anthropic, Google, xAI)          |
 | Claude Code    | `claude`      | `sonnet`             | Anthropic models                                         |
-| Gemini CLI     | `gemini`      | `gemini-2.5-pro`     | Google models, auto-routing                              |
+| Gemini CLI     | `gemini`      | `gemini-2.5-pro`     | Google models; consumer tiers retired 2026-06-18, use `agy` |
 | Junie          | `junie`       | Junie default        | LLM-agnostic, BYOK support                               |
 | Qwen Code      | `qwen`        | Qwen default         | Qwen model family, `--yolo` for auto-approve             |
 | OpenCode       | `opencode`    | OpenCode default     | Multi-provider, uses `run` subcommand with auto-approval |
@@ -327,6 +327,27 @@ needed.
 ### Gemini CLI
 
 [Gemini CLI skills docs](https://geminicli.com/docs/cli/skills/)
+
+Consumer and free tiers were retired on 2026-06-18 in favor of Antigravity CLI (`agy`, below). Enterprise and paid
+API-key users can keep using it.
+
+### Antigravity CLI (agy)
+
+| Scope     | Path                                      |
+|-----------|-------------------------------------------|
+| Global    | `~/.gemini/antigravity-cli/skills/x-agent/` |
+| Workspace | `.agents/skills/x-agent/`                 |
+
+[Antigravity skills docs](https://antigravity.google/docs/skills/)
+
+### jcode
+
+| Scope   | Path                                                |
+|---------|-----------------------------------------------------|
+| Global  | `~/.jcode/skills/x-agent/`                          |
+| Project | `.jcode/skills/x-agent/` or `.agents/skills/x-agent/` |
+
+Also reads `.claude/skills/` for compatibility.
 
 ### Other Agents
 
