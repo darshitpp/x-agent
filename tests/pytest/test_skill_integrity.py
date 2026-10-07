@@ -9,7 +9,7 @@ from pathlib import Path
 
 from conftest import REPO_ROOT
 
-SKILL_DIRS = ["codex", "cursor", "claude", "gemini", "junie", "qwen", "opencode", "pi"]
+SKILL_DIRS = ["codex", "cursor", "claude", "gemini", "junie", "qwen", "opencode", "pi", "agy", "jcode"]
 
 SHARED_FILES = [
     "references/shared-procedure.md",

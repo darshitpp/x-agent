@@ -3,7 +3,7 @@
 Let your AI coding agent talk to other AI coding agents.
 
 x-agent is a set of [agentskills.io](https://agentskills.io) skills that enable any AI CLI tool — Codex, Cursor, Claude
-Code, Gemini CLI, Junie, Qwen Code, OpenCode, Pi — to delegate tasks to or get second opinions from the others. Install it once, and your agent
+Code, Gemini CLI, Junie, Qwen Code, OpenCode, Pi, Antigravity (agy), jcode — to delegate tasks to or get second opinions from the others. Install it once, and your agent
 gains the ability to call any of the other seven.
 
 ## Why
@@ -38,11 +38,13 @@ adds a round-trip to another CLI, so use it when the extra signal is worth the t
 | OpenAI Codex   | `codex`       | `o4-mini`            | OpenAI models only                                       |
 | Cursor Agent   | `agent`       | `composer-2-fast`    | Multi-provider (OpenAI, Anthropic, Google, xAI)          |
 | Claude Code    | `claude`      | `sonnet`             | Anthropic models                                         |
-| Gemini CLI     | `gemini`      | `gemini-2.5-pro`     | Google models, auto-routing                              |
+| Gemini CLI     | `gemini`      | `gemini-2.5-pro`     | Google models; consumer tiers retired 2026-06-18, use `agy` |
 | Junie          | `junie`       | Junie default        | LLM-agnostic, BYOK support                               |
 | Qwen Code      | `qwen`        | Qwen default         | Qwen model family, `--yolo` for auto-approve             |
 | OpenCode       | `opencode`    | OpenCode default     | Multi-provider, uses `run` subcommand with auto-approval |
 | Pi             | `pi`          | `sonnet`             | Multi-provider, minimal terminal coding harness          |
+| Antigravity    | `agy`         | agy default          | Gemini CLI successor, `--dangerously-skip-permissions`   |
+| jcode          | `jcode`       | jcode default        | Multi-provider Rust agent, uses `run` subcommand         |
 
 ## How to use it
 
@@ -118,7 +120,7 @@ git clone https://github.com/darshitpp/x-agent.git .claude/skills/x-agent
 ```
 
 After installation, the skills appear automatically in Claude Code's available skills list. Each CLI has its own skill (
-`codex`, `cursor`, `claude`, `gemini`, `junie`, `qwen`, `opencode`, `pi`) that triggers based on context.
+`codex`, `cursor`, `claude`, `gemini`, `junie`, `qwen`, `opencode`, `pi`, `agy`, `jcode`) that triggers based on context.
 
 To update later:
 
@@ -144,6 +146,8 @@ x-agent/
 ├── qwen/SKILL.md                     # Thin entry point (~27 lines)
 ├── opencode/SKILL.md                # Thin entry point (~27 lines)
 ├── pi/SKILL.md                      # Thin entry point (~27 lines)
+├── agy/SKILL.md                     # Thin entry point (~27 lines)
+├── jcode/SKILL.md                   # Thin entry point (~27 lines)
 ├── references/
 │   ├── shared-procedure.md           # Core procedure (~105 lines)
 │   ├── cli-codex.md                  # Codex CLI identity, invocation, version matrix
@@ -153,7 +157,9 @@ x-agent/
 │   ├── cli-junie.md                  # Junie CLI identity, invocation, version matrix
 │   ├── cli-qwen.md                   # Qwen Code CLI identity, invocation, version matrix
 │   ├── cli-opencode.md              # OpenCode CLI identity, invocation, version matrix
-│   └── cli-pi.md                    # Pi CLI identity, invocation, version matrix
+│   ├── cli-pi.md                    # Pi CLI identity, invocation, version matrix
+│   ├── cli-agy.md                   # Antigravity CLI identity, invocation, version matrix
+│   └── cli-jcode.md                 # jcode CLI identity, invocation, version matrix
 ├── scripts/
 │   ├── validate-metadata.py          # Validates SKILL.md frontmatter (authoring + CI)
 │   ├── query-cli.sh                  # Maintainer-only CLI wrapper (not used by skills at runtime)
@@ -244,7 +250,7 @@ a `SKILL.md` entry point.
 | Project                 | `.claude/skills/x-agent/`   |
 
 **Invoke:** Ask naturally ("get a second opinion from Cursor") or explicitly with `/codex`, `/cursor`, `/claude`,
-`/gemini`, `/junie`, `/qwen`, `/opencode`, `/pi`. Claude loads the skill automatically when relevant.
+`/gemini`, `/junie`, `/qwen`, `/opencode`, `/pi`, `/agy`, `/jcode`. Claude loads the skill automatically when relevant.
 
 [Claude Code skills docs](https://code.claude.com/docs/en/skills)
 
@@ -321,6 +327,27 @@ needed.
 ### Gemini CLI
 
 [Gemini CLI skills docs](https://geminicli.com/docs/cli/skills/)
+
+Consumer and free tiers were retired on 2026-06-18 in favor of Antigravity CLI (`agy`, below). Enterprise and paid
+API-key users can keep using it.
+
+### Antigravity CLI (agy)
+
+| Scope     | Path                                      |
+|-----------|-------------------------------------------|
+| Global    | `~/.gemini/antigravity-cli/skills/x-agent/` |
+| Workspace | `.agents/skills/x-agent/`                 |
+
+[Antigravity skills docs](https://antigravity.google/docs/skills/)
+
+### jcode
+
+| Scope   | Path                                                |
+|---------|-----------------------------------------------------|
+| Global  | `~/.jcode/skills/x-agent/`                          |
+| Project | `.jcode/skills/x-agent/` or `.agents/skills/x-agent/` |
+
+Also reads `.claude/skills/` for compatibility.
 
 ### Other Agents
 
